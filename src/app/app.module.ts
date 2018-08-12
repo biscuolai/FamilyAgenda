@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { rootRouting } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule, MatMenuModule, MatRadioModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input'
+import { MatSelectModule } from '@angular/material/select'
+import { MatDatepickerModule } from '@angular/material/datepicker'
 
 @NgModule({
   declarations: [
@@ -18,7 +22,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     rootRouting,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,         // <----- import(optional)
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatExpansionModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]
