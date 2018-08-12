@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { rootRouting } from './app.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { rootRouting } from './app.routing';
   ],
   imports: [
     BrowserModule,
-    rootRouting
+    rootRouting,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
