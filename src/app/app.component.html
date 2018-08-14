@@ -14,10 +14,6 @@
         <h3 matLine><a routerLink="/tasks">Task List</a></h3>
       </mat-list-item>
       <mat-list-item routerLinkActive="active">
-        <mat-icon matListIcon>playlist_add_check</mat-icon>
-        <h3 matLine><a [routerLink]="['tasks', taskId.value]">Edit Task</a></h3>
-      </mat-list-item>
-      <mat-list-item routerLinkActive="active">
         <mat-icon matListIcon>playlist_add</mat-icon>
         <h3 matLine><a routerLink="/tasks/new">Create</a></h3>
       </mat-list-item>
@@ -45,12 +41,7 @@
     </mat-toolbar>
     
     <!-- Main Router that renders content in the main area -->
-    <div> 
-        <p>Please enter Task ID</p>
-        <input #taskId>
-
-        <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
 
   </mat-sidenav-content>
 </mat-sidenav-container>

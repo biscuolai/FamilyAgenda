@@ -28,7 +28,7 @@ export class TaskDetailComponent implements OnInit {
         this.task = this.tasksService.getTask(this.id);
 
         if (this.task == null){
-          this.router.navigate(['/tasknotfound']);
+          this.router.navigate(['/tasks/notfound']);
         }
       }
     );
@@ -38,4 +38,7 @@ export class TaskDetailComponent implements OnInit {
     this.subscription.unsubscribe();  
   }
 
+  editTask(){
+    this.router.navigate(['/tasks', this.id, 'edit']);
+  }
 }

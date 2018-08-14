@@ -9,27 +9,18 @@ import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { TasksModule } from './tasks/tasks.module';
 import { AppRoutingModule } from './app.routing.module';
-
-//import { TasksComponent } from './tasks/tasks.component';
-//import { TaskDetailComponent } from './tasks/task-detail/task-detail.component'
-//import { rootRouting } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    //TasksComponent,
-    //TaskDetailComponent
   ],
   imports: [
     BrowserModule,
-    //rootRouting,
     BrowserAnimationsModule,
 
-    TasksModule,
     AppRoutingModule,
 
     MatToolbarModule,

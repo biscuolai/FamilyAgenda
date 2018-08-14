@@ -1,5 +1,7 @@
 <p>
-  You entered ID# {{ id }}
+  ID# {{ task.id }}
 
-  Task Name {{ task?.name }}
+  Task Name: {{ task?.name }}
 </p>
+
+<button (click)="editTask()">Edit Task</button>

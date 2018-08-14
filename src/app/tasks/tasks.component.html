@@ -1,8 +1,17 @@
-<mat-list role="list">
-  <mat-list-item role="listitem">
-    <a *ngFor="let task of tasks"
-      [routerLink]="['/tasks', task.id]">
-      {{ task.name }} 
-    </a>
-  </mat-list-item>
-</mat-list>
+<div layout="row" layout-wrap>
+  <h5>Tasks details</h5>
+  <div flex="50">
+    <mat-list role="list">
+      <mat-list-item role="listitem"
+        *ngFor="let task of tasks"
+          [routerLink]="['/tasks', task.id]">
+          {{ task.name }} 
+      </mat-list-item>
+    </mat-list>
+</div>
+<div flex="50">
+    <router-outlet></router-outlet>
+</div>
+
+
+
