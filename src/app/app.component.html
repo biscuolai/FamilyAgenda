@@ -6,32 +6,28 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
+    
     <mat-toolbar color="primary">Family Agenda</mat-toolbar>
     <mat-nav-list>
-      <mat-list-item>
+      <mat-list-item routerLinkActive="active">
         <mat-icon matListIcon>playlist_add_check</mat-icon>
-        <h3 matLine><a routerLink="/family-agenda">To Do List</a></h3>
-        <p matLine>
-          <span><a routerLink="/family-agenda">View All Items</a></span>
-        </p>
+        <h3 matLine><a routerLink="/tasks">Task List</a></h3>
       </mat-list-item>
-      <mat-list-item>
+      <mat-list-item routerLinkActive="active">
+        <mat-icon matListIcon>playlist_add_check</mat-icon>
+        <h3 matLine><a [routerLink]="['tasks', taskId.value]">Edit Task</a></h3>
+      </mat-list-item>
+      <mat-list-item routerLinkActive="active">
         <mat-icon matListIcon>playlist_add</mat-icon>
-        <h3 matLine><a routerLink="/family-agenda/add">To do List</a></h3>
-        <p matLine>
-          <span><a routerLink="/family-agenda/add">Add New Item</a></span>
-        </p>
+        <h3 matLine><a routerLink="/tasks/new">Create</a></h3>
       </mat-list-item>
-      <mat-list-item> <!--*ngIf="userService.roleMatch(['Admin'])"-->
+      <mat-list-item routerLinkActive="active"> <!--*ngIf="userService.roleMatch(['Admin'])"-->
         <mat-icon matListIcon>settings</mat-icon>
-        <h3 matLine><a routerLink="/admin">Administration</a></h3>
-        <p matLine>
-          <span><a routerLink="/admin">Change settings</a></span>
-        </p>
+        <h3 matLine><a routerLink="/login">Settings</a></h3>
       </mat-list-item>
       <mat-list-item>
         <mat-icon matListIcon>directions_run</mat-icon>
-        <h3 matLine><a mat-list-item href="#" (click)="logOut()">Log out</a></h3>
+        <h3 matLine><a href="#" (click)="logOut()">Log out</a></h3>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
@@ -48,8 +44,14 @@
       <!-- <span class="sidenav-welcome" *ngIf="userClaims">Welcome {{ userClaims.FirstName }} {{ userClaims.LastName }}</span> -->
     </mat-toolbar>
     
-    <!-- Main Router that renders content in the main area --> 
-    <router-outlet></router-outlet>
+    <!-- Main Router that renders content in the main area -->
+    <div> 
+        <p>Please enter Task ID</p>
+        <input #taskId>
+
+        <router-outlet></router-outlet>
+    </div>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+

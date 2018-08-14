@@ -1,11 +1,12 @@
-import { TaskNotFoundComponent } from './tasks/task-not-found/task-not-found.component';
+import { NgModule } from "@angular/core";
+import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TasksComponent } from './tasks/tasks.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { ModuleWithProviders } from '@angular/core';
+import { TasksComponent } from './tasks/tasks.component';
 import { TaskDetailComponent } from './tasks/task-detail/task-detail.component';
+import { TaskNotFoundComponent } from './tasks/task-not-found/task-not-found.component';
 
 const appRoutes: Routes = [
     { path: 'tasks', component: TasksComponent },
@@ -15,4 +16,8 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent }
 ];
 
-export const rootRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+@NgModule({
+    imports: [RouterModule.forRoot(appRoutes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule {}
