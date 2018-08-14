@@ -9,15 +9,15 @@
     
     <mat-toolbar color="primary">Family Agenda</mat-toolbar>
     <mat-nav-list>
-      <mat-list-item routerLinkActive="active">
+      <mat-list-item>
         <mat-icon matListIcon>playlist_add_check</mat-icon>
         <h3 matLine><a routerLink="/tasks">Task List</a></h3>
       </mat-list-item>
-      <mat-list-item routerLinkActive="active">
+      <mat-list-item>
         <mat-icon matListIcon>playlist_add</mat-icon>
         <h3 matLine><a routerLink="/tasks/new">Create</a></h3>
       </mat-list-item>
-      <mat-list-item routerLinkActive="active"> <!--*ngIf="userService.roleMatch(['Admin'])"-->
+      <mat-list-item> <!--*ngIf="userService.roleMatch(['Admin'])"-->
         <mat-icon matListIcon>settings</mat-icon>
         <h3 matLine><a routerLink="/login">Settings</a></h3>
       </mat-list-item>
