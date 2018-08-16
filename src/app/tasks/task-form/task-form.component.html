@@ -1,11 +1,11 @@
 <form class="example-form" [formGroup]="form">
   <div class="example-container">
     <mat-form-field>
-      <input matInput formControlName="id" required>
+      <input matInput formControlName="Id" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput formControlName="name" placeholder="Please enter the name" required>
-      <mat-error *ngIf="checkValidTouched('name')">name is required</mat-error>
+      <input matInput formControlName="Name" placeholder="Please enter the name" required>
+      <mat-error *ngIf="checkValidTouched('Name')">name is required</mat-error>
     </mat-form-field>
     <button mat-raised-button (click)="form.valid && onSubmit()">Submit</button>
   </div>

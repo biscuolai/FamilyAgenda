@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,10 +9,21 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  title = 'FamilyAgenda';
-
-  constructor() 
+  showMainNavigation: boolean = false;
+  subscription: Subscription;
+  
+  constructor(private authService: AuthService) 
   {
 
+  }
+
+  ngOnInit(){
+    this.subscription = this.authService.showMainNavigation.subscribe(
+      show => this.showMainNavigation = (show == 'true')
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();    
   }
 }

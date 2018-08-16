@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TasksComponent } from './tasks.component';
@@ -21,8 +21,8 @@ import { TaskFormComponent } from './task-form/task-form.component';
     ],
     imports: [ 
         CommonModule,
-        FormsModule,
         HttpClientModule,
+        FormsModule,
         ReactiveFormsModule,
 
         TasksRoutingModule,

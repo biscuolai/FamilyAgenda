@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -11,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppRoutingModule } from './app.routing.module';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
 
     AppRoutingModule,
 
@@ -48,7 +52,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
     MatExpansionModule,
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

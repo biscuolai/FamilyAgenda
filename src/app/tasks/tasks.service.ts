@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { Task } from './../shared/task';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
+  task: Task;
+
   getTasks(){
     return [
-      {id: 1, name: 'test1'},
-      {id: 2, name: 'test2'},
-      {id: 3, name: 'test3'},
-      {id: 4, name: 'test4'}
+      new Task(1, 'test1'),
+      new Task(2, 'test2'),
+      new Task(3, 'test3'),
     ]
   }
 
@@ -20,7 +23,7 @@ export class TasksService {
     for (let index = 0; index < tasks.length; index++) {
       const element = tasks[index];
       //console.log(element, id);
-      if (element.id == id){
+      if (element.Id == id){
         return element;
       }
     }

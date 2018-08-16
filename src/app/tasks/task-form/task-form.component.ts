@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../tasks.service';
+import { Task } from './../../shared/task';
 
 @Component({
   selector: 'app-task-form',
@@ -13,7 +14,7 @@ export class TaskFormComponent implements OnInit {
 
   form: FormGroup;
   subscription: Subscription;
-  task: any;
+  task: Task;
   id: number;
 
   constructor(
@@ -25,22 +26,32 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      id: ['', null],
-      name: ['', null]
+      Id: ['', null],
+      Name: ['', null]
     });
 
     this.subscription = this.route.params.subscribe(
       (params: any) => {
         this.id = params['id'];
-        this.task = this.tasksService.getTask(this.id);
 
-        if (this.task === null){
-          this.task = {};
+        // no param id has been passed, therefore it is not edit mode
+        if (this.id === undefined){
+          this.form.reset();
+        }
+        else{
+          this.task = this.tasksService.getTask(this.id);
+
+          console.log('task returned', this.task);
+
+          // if task was found and returned data
+          if (this.task !== null)
+          {
+            this.form.get('Id').setValue(this.task.Id);
+            this.form.get('Name').setValue(this.task.Name);
+          }
         }
       }
     );
-
-    //this.form.get('id').disable();
   }
 
   ngOnDestroy() {

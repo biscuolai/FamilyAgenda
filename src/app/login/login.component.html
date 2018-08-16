@@ -1,3 +1,14 @@
 <p>
-  login works!
+  Login
 </p>
+<form class="example-form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && login()">
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput formControlName="Username" placeholder="Please enter Username" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="Password" placeholder="Please enter Password" required>
+    </mat-form-field>
+    <button mat-raised-button>Submit</button>
+  </div>
+</form>
