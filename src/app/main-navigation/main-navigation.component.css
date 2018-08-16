@@ -1,0 +1,27 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+mat-toolbar a{
+  display: block;
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.appTitle {
+  margin-left: 10px;
+}

@@ -10,12 +10,14 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AppRoutingModule } from './app.routing.module';
+import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
+    MainNavigationComponent
   ],
   imports: [
     BrowserModule,
