@@ -19,7 +19,10 @@ export class AppComponent {
 
   ngOnInit(){
     this.subscription = this.authService.showMainNavigation.subscribe(
-      show => this.showMainNavigation = (show == 'true')
+      (show) => {
+        console.log('subscription show',show, show == 'false');
+        this.showMainNavigation = (show == 'true')
+      }
     );
   }
 

@@ -34,12 +34,12 @@ export class LoginComponent implements OnInit {
       (queryParams: any) => {
         // User is logging out
 
-        console.log(queryParams['logout'])
+        console.log("queryParams['logout']", queryParams['logout'])
 
         this.isLoggingOut = (queryParams['logout'] !== undefined && queryParams['logout'] == 'true');
 
         if (this.isLoggingOut){
-          console.log('log out', this.isLoggingOut);
+          console.log('log out inside login.component', this.isLoggingOut);
           this.authService.logout();
         }
       }

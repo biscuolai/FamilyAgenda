@@ -4,11 +4,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from "./guards/auth.guard";
+import { TasksGuard } from "./guards/tasks.guard";
 
 const appRoutes: Routes = [
-    { path: 'tasks', loadChildren: './tasks/tasks.module#TasksModule' },
+    { path: 'tasks', 
+        loadChildren: './tasks/tasks.module#TasksModule',
+        canActivate: [AuthGuard],
+        canActivateChild: [TasksGuard]
+    },
     { path: 'login', component: LoginComponent },
-    { path: '', component: HomeComponent }
+    { path: '', 
+        component: HomeComponent,
+        canActivate: [AuthGuard] 
+    }
 ];
 
 @NgModule({

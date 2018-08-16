@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
+  <mat-sidenav *ngIf="showNav"
     #drawer
     class="sidenav"
     fixedInViewport="true"
@@ -13,7 +13,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" *ngIf="showNav">
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -24,7 +24,7 @@
       </button>
       <mat-icon>home</mat-icon><a class="appTitle" routerLink="/">Family Agenda</a>
       <span class="spacer"></span>
-      <mat-icon matListIcon>directions_run</mat-icon><a routerLink="/login" [queryParams]="{logout:true}">Log out</a>
+      <mat-icon matListIcon>directions_run</mat-icon><a (click)="logout()">Log out</a> <!--[queryParams]="{logout:true}"-->
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content></ng-content>

@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -52,7 +53,10 @@ import { AuthService } from './auth/auth.service';
     MatExpansionModule,
 
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
