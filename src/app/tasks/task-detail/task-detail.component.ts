@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Task } from './../../shared/task';
-import { TasksService } from './../tasks.service';
+import { Task } from '../../shared/task';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task-detail',

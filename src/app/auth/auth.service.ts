@@ -1,4 +1,4 @@
-import { User } from './../shared/user';
+import { User } from '../shared/user';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -33,8 +33,8 @@ export class AuthService {
   logout() {
     console.log('logout inside auth service', this.showMainNavigation);
     this.userAuthenticated = false;
-    this.showMainNavigation.emit('false');
     this.router.navigate(['/login']);
+    this.showMainNavigation.emit('false');
   }
 
   IsUserAuthenticated() {

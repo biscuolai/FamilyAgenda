@@ -3,14 +3,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TasksService } from '../tasks.service';
-import { Task } from './../../shared/task';
+import { Task } from '../../shared/task';
+import { IFormCanDeactivate } from '../../guards/iform-candeactivate';
 
 @Component({
   selector: 'app-task-form',
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css']
 })
-export class TaskFormComponent implements OnInit {
+export class TaskFormComponent implements OnInit, IFormCanDeactivate {
 
   form: FormGroup;
   subscription: Subscription;
@@ -46,7 +47,7 @@ export class TaskFormComponent implements OnInit {
           // if task was found and returned data
           if (this.task !== null)
           {
-            this.form.get('Id').setValue(this.task.Id);
+            this.form.get('Id').setValue(this.task['Id']);
             this.form.get('Name').setValue(this.task.Name);
           }
         }
@@ -83,6 +84,28 @@ export class TaskFormComponent implements OnInit {
 
   checkValidTouched(fieldName) {
     return !this.form.get(fieldName).valid && (this.form.get(fieldName).touched || this.form.get(fieldName).dirty);
+  }
+
+  // implements from iform-candeactivate 
+  canExitPage() {
+    if (this.isFormDirty(this.form)){
+      return confirm('Are you sure you want to exit the page?');
+    }
+    return true;
+  }
+
+  private isFormDirty(formGroup: FormGroup) {
+    let result: boolean = false;
+    Object.keys(formGroup.controls).forEach(name => {
+      const control = formGroup.get(name);
+      if (control.dirty) {
+        result = true;
+      }
+      if (control instanceof FormGroup && result == false) {
+        this.isFormDirty(control);
+      }
+    })
+    return result;
   }
 
 }

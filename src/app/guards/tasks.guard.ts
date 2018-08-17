@@ -12,8 +12,8 @@ export class TasksGuard implements CanActivateChild {
   {
     // in case we don't want the user to edit
     if (state.url.includes('/edit')) {
-      alert('Access denied. User cannot access the record.');
-      return false;
+      //alert('Access denied. User cannot access the record.');
+      //return false;
     }
     return true;
   }

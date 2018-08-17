@@ -14,6 +14,7 @@ const appRoutes: Routes = [
         canActivateChild: [TasksGuard]
     },
     { path: 'login', component: LoginComponent },
+    { path: 'logout', component: LoginComponent },
     { path: '', 
         component: HomeComponent,
         canActivate: [AuthGuard] 

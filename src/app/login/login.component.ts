@@ -30,20 +30,20 @@ export class LoginComponent implements OnInit {
       Password: ['', Validators.required]
     });
 
-    this.subscription = this.route.queryParams.subscribe(
-      (queryParams: any) => {
-        // User is logging out
+    // this.subscription = this.route.queryParams.subscribe(
+    //   (queryParams: any) => {
+    //     // User is logging out
 
-        console.log("queryParams['logout']", queryParams['logout'])
+    //     console.log("queryParams['logout']", queryParams['logout'])
 
-        this.isLoggingOut = (queryParams['logout'] !== undefined && queryParams['logout'] == 'true');
+    //     this.isLoggingOut = (queryParams['logout'] !== undefined && queryParams['logout'] == 'true');
 
-        if (this.isLoggingOut){
-          console.log('log out inside login.component', this.isLoggingOut);
-          this.authService.logout();
-        }
-      }
-    );
+    //     if (this.isLoggingOut){
+    //       console.log('log out inside login.component', this.isLoggingOut);
+    //       this.authService.logout();
+    //     }
+    //   }
+    // );
   }
 
   login() {
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();  
-  }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();  
+  // }
 }

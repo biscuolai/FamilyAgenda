@@ -10,7 +10,7 @@ import { MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, Mat
 import { TaskNotFoundComponent } from './task-not-found/task-not-found.component';
 import { TasksRoutingModule } from './tasks.routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
-
+import { FormDeactivateGuard } from './../guards/form-deactivate.guard';
 
 @NgModule({
     declarations: [ 
@@ -34,7 +34,10 @@ import { TaskFormComponent } from './task-form/task-form.component';
         MatDatepickerModule,        
         MatSelectModule,
     ],
-    exports: [ ],
-    providers: [TasksService],
+    exports: [],
+    providers: [
+        TasksService,
+        FormDeactivateGuard
+    ],
 })
 export class TasksModule {}
