@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,7 +21,8 @@ import { AuthService } from './auth/auth.service';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    MainNavigationComponent
+    MainNavigationComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

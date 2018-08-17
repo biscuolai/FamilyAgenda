@@ -1,5 +1,5 @@
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgModule } from "@angular/core";
-import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -11,14 +11,17 @@ const appRoutes: Routes = [
     { path: 'tasks', 
         loadChildren: './tasks/tasks.module#TasksModule',
         canActivate: [AuthGuard],
-        canActivateChild: [TasksGuard]
+        canActivateChild: [TasksGuard],
+        canLoad: [AuthGuard]
     },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LoginComponent },
-    { path: '', 
+    { path: 'home', 
         component: HomeComponent,
         canActivate: [AuthGuard] 
-    }
+    },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

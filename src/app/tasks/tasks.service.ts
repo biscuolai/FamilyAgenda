@@ -8,13 +8,15 @@ import { Task } from '../shared/task';
 export class TasksService {
 
   task: Task;
+  private tasks: Task[] = [
+    {Id: 1, Name: 'Task 1'},
+    {Id: 2, Name: 'Task 2'},
+    {Id: 3, Name: 'Task 3'},
+    {Id: 4, Name: 'Task 4'},
+  ]
 
   getTasks(){
-    return [
-      new Task(1, 'test1'),
-      new Task(2, 'test2'),
-      new Task(3, 'test3'),
-    ]
+    return this.tasks;
   }
 
   getTask(id: number){

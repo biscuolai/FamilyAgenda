@@ -1,10 +1,8 @@
 export class Task {
 
-    constructor(id: number, name: string){
-        this.Id = id
-        this.Name = name
+    constructor(
+        public Id: number,
+        public Name: string
+    ){
     }
-
-    Id: number;
-    Name: string;
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Task } from '../../shared/task';
-import { TasksService } from '../tasks.service';
+//import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -18,20 +18,31 @@ export class TaskDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private tasksService: TasksService,
+    //private tasksService: TasksService,
     private router: Router
   ) { 
   }
 
   ngOnInit() {
-    this.subscription = this.route.params.subscribe(
-      (params: any) => {
-        this.id = params['id'];
-        this.task = this.tasksService.getTask(this.id);
+    // this.subscription = this.route.params.subscribe(
+    //   (params: any) => {
+    //     this.id = params['id'];
+    //     this.task = this.tasksService.getTask(this.id);
 
-        if (this.task == null){
+    //     if (this.task == null){
+    //       this.router.navigate(['/tasks/notfound']);
+    //     }
+    //   }
+    // );
+
+    this.subscription = this.route.data.subscribe(
+      (data: { task: Task }) => {
+
+        if (data.task == null) {
           this.router.navigate(['/tasks/notfound']);
         }
+
+        this.task = data.task;
       }
     );
   }
@@ -41,6 +52,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   editTask(){
-    this.router.navigate(['/tasks', this.id, 'edit']);
+    this.router.navigate(['/tasks', this.task.Id, 'edit']);
   }
 }

@@ -1,3 +1,4 @@
+import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +38,8 @@ import { FormDeactivateGuard } from './../guards/form-deactivate.guard';
     exports: [],
     providers: [
         TasksService,
-        FormDeactivateGuard
+        FormDeactivateGuard,
+        TaskDetailsResolverGuard
     ],
 })
 export class TasksModule {}
