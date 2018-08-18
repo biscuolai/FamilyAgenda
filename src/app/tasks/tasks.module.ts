@@ -1,4 +1,3 @@
-import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,13 +11,16 @@ import { TaskNotFoundComponent } from './task-not-found/task-not-found.component
 import { TasksRoutingModule } from './tasks.routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { FormDeactivateGuard } from './../guards/form-deactivate.guard';
+import { FormDebugComponent } from './../shared/form-debug/form-debug.component';
+import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
 
 @NgModule({
     declarations: [ 
         TasksComponent,
         TaskDetailComponent,
         TaskNotFoundComponent,
-        TaskFormComponent 
+        TaskFormComponent,
+        FormDebugComponent
     ],
     imports: [ 
         CommonModule,
