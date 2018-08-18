@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   subscription: Subscription;
   signUpForm: FormGroup;
   private user: User = new User();
+  hide: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,

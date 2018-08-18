@@ -8,7 +8,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthService } from './auth.service';
 
-import { MatFormFieldModule, MatTabsModule, MatButtonModule, MatInputModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatTabsModule, MatButtonModule, MatInputModule, MatListModule, MatToolbarModule, MatIconModule } from '@angular/material';
 
 
 @NgModule({
@@ -28,7 +28,9 @@ import { MatFormFieldModule, MatTabsModule, MatButtonModule, MatInputModule, Mat
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        MatToolbarModule,
+        MatIconModule
     ],
     exports: [],
     providers: [

@@ -8,3 +8,19 @@
 .border-box{
   margin: 50px;
 }
+.signin-form-field-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 30px; 
+  padding-right: 30px; 
+}
+
+.signin-form-field-first {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 30px; 
+  padding-right: 30px;
+  padding-top: 30px; 
+}
