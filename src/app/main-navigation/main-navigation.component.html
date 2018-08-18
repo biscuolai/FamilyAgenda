@@ -1,31 +1,34 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav 
+  <mat-sidenav [ngClass]="{hidden : !showNav}"
     #drawer
     class="sidenav"
     fixedInViewport="true"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'dialog'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>
+    [opened]="false">
+    <mat-toolbar color="primary" [ngClass]="{hidden : !showNav}">Menu</mat-toolbar>
+    <mat-nav-list [ngClass]="{hidden : !showNav}">
       <a mat-list-item routerLink="/tasks"><mat-icon matListIcon>playlist_add_check</mat-icon>Task List</a>
       <a mat-list-item routerLink="/tasks/new"><mat-icon matListIcon>playlist_add</mat-icon>Create</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
+      <button [ngClass]="{ hidden : !showNav }"
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <mat-icon>home</mat-icon><a class="appTitle" routerLink="/home">Family Agenda</a>
-      <span class="spacer"></span>
-      <mat-icon matListIcon>directions_run</mat-icon>
-      <a (click)="logout()">Log out</a> <!--[queryParams]="{logout:true}"-->
+      
+      <mat-icon [ngClass]="{ hidden : !showNav }">home</mat-icon>
+      <a [ngClass]="{ hidden : !showNav }" class="appTitle" routerLink="/home">Home</a>
+      <span class="spacer" [ngClass]="{ hidden : !showNav }"></span>
+
+      <a class="appTitle" routerLink="/signin" [ngClass]="{ hidden : showNav }">Welcome - Sign In</a>
+      
+      <a (click)="logout(); drawer.toggle();" [ngClass]="{ hidden : !showNav }">Log out</a> <!--[queryParams]="{logout:true}"-->
     </mat-toolbar>
     <!-- Add Content Here -->
     <ng-content></ng-content>

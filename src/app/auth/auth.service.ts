@@ -15,11 +15,9 @@ export class AuthService {
   signin(user: User){
     if (user.Username == 'ilson@gmail.com' && user.Password == '123') {
       this.userAuthenticated = true;
-      this.showMainNavigation.emit('true');
-
       console.log('login successful', this.showMainNavigation);
-
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
+      this.showMainNavigation.emit('true');
     }
     else{
 

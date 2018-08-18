@@ -2,7 +2,7 @@
     <mat-tab-group dynamicHeight class="border-box" color="primary" backgroundColor="primary" [selectedIndex]="0">
       <mat-tab label="Sign In">
         <div class="signin-box">
-          <form [formGroup]="signInForm" (ngSubmit)="signInForm.valid && signin()">
+          <form [formGroup]="signInForm" (ngSubmit)="signInForm.valid && signIn()">
             <div>
               <mat-form-field>
                 <input matInput formControlName="Username" placeholder="Username" required>
@@ -14,16 +14,43 @@
               </mat-form-field>
             </div>
             <div fxLayoutAlign="center">
-              <button mat-raised-button>Login</button>
+              <button mat-raised-button>Sign In</button>
             </div>
           </form>
         </div>
       </mat-tab>
       <mat-tab label="Sign Out">
-        <div class="border-box mat-elevation-z4">
-          TODO Sign up
+        <div class="signin-box">
+          <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && signUp()">
+            <div>
+              <mat-form-field>
+                <input matInput formControlName="FirstName" placeholder="First name" required>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput formControlName="LastName" placeholder="Last name" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput formControlName="Username" placeholder="User name" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <input matInput formControlName="Email" placeholder="Email" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                  <input matInput formControlName="Password" placeholder="Password" required>
+              </mat-form-field>
+            </div>
+            <div fxLayoutAlign="center">
+              <button mat-raised-button>Sign Up</button>
+            </div>
+          </form>
         </div>
-      </mat-tab>
+        </mat-tab>
     </mat-tab-group>
   </div>
     

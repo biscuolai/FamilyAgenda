@@ -24,6 +24,7 @@ export class MainNavigationComponent {
   ) {}
   
   logout(){
+    this.showNav = false;
     this.authService.signout();
   }
 }

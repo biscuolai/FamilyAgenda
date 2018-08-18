@@ -6,16 +6,20 @@
   width: 200px;
 }
 
+.sidenavresetwidth {
+  width: 0px;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
 }
 
-.spacer{
+.spacer {
   flex: 1 1 auto;
 }
 
-mat-toolbar a{
+mat-toolbar a {
   display: block;
   margin: 0 10px;
   color: white;
@@ -24,4 +28,12 @@ mat-toolbar a{
 
 .appTitle {
   margin-left: 10px;
+}
+
+.hidden {
+  display: none ! important;
+}
+
+.hidden a {
+  display: none ! important;
 }

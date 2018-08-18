@@ -14,8 +14,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class SignInComponent implements OnInit {
 
   subscription: Subscription;
-  isLoggingOut: boolean;
+  //isLoggingOut: boolean;
   signInForm: FormGroup;
+  signUpForm: FormGroup;
   private user: User = new User();
 
   constructor(
@@ -27,6 +28,14 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
       Username: ['', Validators.required],
+      Password: ['', Validators.required]
+    });
+
+    this.signUpForm = this.formBuilder.group({
+      Username: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required],
+      Email: ['', Validators.email],
       Password: ['', Validators.required]
     });
 
@@ -46,7 +55,7 @@ export class SignInComponent implements OnInit {
     // );
   }
 
-  signin() {
+  signIn() {
 
     console.log('form', this.signInForm);
     
@@ -55,6 +64,18 @@ export class SignInComponent implements OnInit {
       this.user.Username = this.signInForm.get('Username').value;
       this.user.Password = this.signInForm.get('Password').value;
       this.authService.signin(this.user);
+    }
+  }
+
+  signUp(){
+    if (this.signUpForm.valid) {
+      console.log(this.signUpForm.value);
+      this.user.Username = this.signUpForm.get('Username').value;
+      this.user.FirstName = this.signUpForm.get('FirstName').value;
+      this.user.LastName = this.signUpForm.get('LastName').value;
+      this.user.Email = this.signUpForm.get('Email').value;
+      this.user.Password = this.signUpForm.get('Password').value;
+      //this.authService.signup(this.user);
     }
   }
 
