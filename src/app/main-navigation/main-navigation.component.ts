@@ -24,6 +24,6 @@ export class MainNavigationComponent {
   ) {}
   
   logout(){
-    this.authService.logout();
+    this.authService.signout();
   }
 }

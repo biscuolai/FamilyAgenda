@@ -1,11 +1,12 @@
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from "./guards/auth.guard";
 import { TasksGuard } from "./guards/tasks.guard";
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 
 const appRoutes: Routes = [
     { path: 'tasks', 
@@ -14,8 +15,8 @@ const appRoutes: Routes = [
         canActivateChild: [TasksGuard],
         canLoad: [AuthGuard]
     },
-    { path: 'login', component: LoginComponent },
-    { path: 'logout', component: LoginComponent },
+    { path: 'signin', component: SignInComponent },
+    { path: 'signup', component: SignUpComponent },
     { path: 'home', 
         component: HomeComponent,
         canActivate: [AuthGuard] 

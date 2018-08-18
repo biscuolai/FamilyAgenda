@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  login(user: User){
+  signin(user: User){
     if (user.Username == 'ilson@gmail.com' && user.Password == '123') {
       this.userAuthenticated = true;
       this.showMainNavigation.emit('true');
@@ -30,10 +30,10 @@ export class AuthService {
     }
   }
 
-  logout() {
+  signout() {
     console.log('logout inside auth service', this.showMainNavigation);
     this.userAuthenticated = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/signin']);
     this.showMainNavigation.emit('false');
   }
 

@@ -6,7 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TasksComponent } from './tasks.component';
 import { TasksService } from './tasks.service';
-import { MatListModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSelectModule } from '@angular/material';
+import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule, MatMenuModule, MatRadioModule, MatTabsModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input'
+import { MatSelectModule } from '@angular/material/select'
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TaskNotFoundComponent } from './task-not-found/task-not-found.component';
 import { TasksRoutingModule } from './tasks.routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
@@ -30,12 +33,28 @@ import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
 
         TasksRoutingModule,
 
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        MatListModule,
-        MatDatepickerModule,        
+        MatRippleModule,
+        MatDatepickerModule,        // <----- import(must)
+        MatNativeDateModule,         // <----- import(optional)
         MatSelectModule,
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        MatRadioModule,
+        MatExpansionModule,
+        MatTabsModule
     ],
     exports: [],
     providers: [

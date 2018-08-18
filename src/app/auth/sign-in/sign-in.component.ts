@@ -1,21 +1,21 @@
-import { User } from './../shared/user';
+import { AuthService } from './../auth.service';
+import { User } from './../../shared/user';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class LoginComponent implements OnInit {
+export class SignInComponent implements OnInit {
 
   subscription: Subscription;
   isLoggingOut: boolean;
-  loginForm: FormGroup;
+  signInForm: FormGroup;
   private user: User = new User();
 
   constructor(
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.signInForm = this.formBuilder.group({
       Username: ['', Validators.required],
       Password: ['', Validators.required]
     });
@@ -46,15 +46,15 @@ export class LoginComponent implements OnInit {
     // );
   }
 
-  login() {
+  signin() {
 
-    console.log('form', this.loginForm);
+    console.log('form', this.signInForm);
     
-    if (this.loginForm.valid) {
+    if (this.signInForm.valid) {
       console.log('form is valid');
-      this.user.Username = this.loginForm.get('Username').value;
-      this.user.Password = this.loginForm.get('Password').value;
-      this.authService.login(this.user);
+      this.user.Username = this.signInForm.get('Username').value;
+      this.user.Password = this.signInForm.get('Password').value;
+      this.authService.signin(this.user);
     }
   }
 
@@ -62,3 +62,4 @@ export class LoginComponent implements OnInit {
   //   this.subscription.unsubscribe();  
   // }
 }
+

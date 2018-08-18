@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout'
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { AuthService } from './auth/auth.service';
@@ -17,11 +16,11 @@ import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     MainNavigationComponent,
     PageNotFoundComponent
@@ -34,6 +33,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FlexLayoutModule,
 
     AppRoutingModule,
+    AuthModule,
 
     MatToolbarModule,
     MatButtonModule,
