@@ -22,7 +22,8 @@ export class SignInComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -57,6 +58,10 @@ export class SignInComponent implements OnInit {
       this.user.Password = this.signInForm.get('Password').value;
       this.authService.signin(this.user);
     }
+  }
+
+  signUp(){
+    this.router.navigate(['/signup']);
   }
 
   // ngOnDestroy() {

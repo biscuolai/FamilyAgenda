@@ -3,20 +3,20 @@
     <form [formGroup]="signInForm" (ngSubmit)="signInForm.valid && signIn()">
       <mat-toolbar color="primary">Family Agenda - Please sign in</mat-toolbar>
       <div class="signin-form-field-first">
-        <mat-form-field>
+        <mat-form-field fxFlex="100">
           <input matInput formControlName="Username" placeholder="Username" required>
           <mat-icon matSuffix>account_box</mat-icon>
         </mat-form-field>
       </div>
       <div class="signin-form-field-middle">
-        <mat-form-field>
+        <mat-form-field fxFlex="100">
           <input matInput formControlName="Password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required>
           <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
         </mat-form-field>
       </div>
-      <a routerLink="/signup">Create an account</a>
       <div class="signin-form-field-first" fxLayoutAlign="center">
         <button mat-raised-button color="primary">Sign In</button>
+        <button mat-raised-button color="primary" fxFlex="70" fxFlexOffset="25px" (click)="signUp()">Create an account</button>
       </div>
     </form>
   </div>

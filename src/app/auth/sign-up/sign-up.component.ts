@@ -1,5 +1,5 @@
 import { AuthService } from './../auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from './../../shared/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,8 @@ export class SignUpComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,6 +44,10 @@ export class SignUpComponent implements OnInit {
       this.user.Password = this.signUpForm.get('Password').value;
       //this.authService.signup(this.user);
     }
+  }
+
+  signIn(){
+    this.router.navigate(['/signin']);
   }
 
 }
