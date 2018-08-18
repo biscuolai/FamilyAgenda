@@ -10,10 +10,11 @@ import { AuthService } from './auth.service';
 
 import { MatFormFieldModule, MatTabsModule, MatButtonModule, MatInputModule, MatListModule } from '@angular/material';
 
+
 @NgModule({
     declarations: [ 
         SignInComponent,
-        SignUpComponent
+        SignUpComponent,
     ],
     imports: [ 
         CommonModule,
