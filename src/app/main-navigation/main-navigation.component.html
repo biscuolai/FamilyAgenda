@@ -8,7 +8,7 @@
     [opened]="false">
     <mat-toolbar color="primary" [ngClass]="{hidden : !showNav}" (click)="drawer.toggle()">Menu</mat-toolbar>
     <mat-nav-list [ngClass]="{hidden : !showNav}">
-      <a mat-list-item routerLink="/tasks"><mat-icon matListIcon>playlist_add_check</mat-icon>Task List</a>
+      <a mat-list-item routerLink="/home"><mat-icon matListIcon>playlist_add_check</mat-icon>Task List</a>
       <a mat-list-item routerLink="/tasks/new"><mat-icon matListIcon>playlist_add</mat-icon>Create</a>
     </mat-nav-list>
   </mat-sidenav>

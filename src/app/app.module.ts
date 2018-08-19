@@ -1,5 +1,4 @@
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AuthGuard } from './guards/auth.guard';
+import { TaskDatagridComponent } from './tasks/task-datagrid/task-datagrid.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app.routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './guards/auth.guard';
 
 import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule, MatMenuModule, MatRadioModule, MatTabsModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input'
@@ -23,7 +24,8 @@ import { AuthModule } from './auth/auth.module';
     AppComponent,
     HomeComponent,
     MainNavigationComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TaskDatagridComponent
   ],
   imports: [
     BrowserModule,

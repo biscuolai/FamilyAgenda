@@ -1,11 +1,12 @@
-import { Task } from './../shared/task';
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
+import { Task } from './../shared/task';
+
 /**
- * Data source for the FamilyTodoDatagrid view. This class should
+ * Data source for the TaskDatagrid. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
@@ -89,6 +90,3 @@ export class TasksDataSource extends DataSource<Task> {
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
-
-
-
