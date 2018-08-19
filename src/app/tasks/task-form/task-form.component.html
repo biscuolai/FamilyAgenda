@@ -4,10 +4,37 @@
       <input matInput formControlName="Id" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput formControlName="Name" placeholder="Please enter the name" required>
-      <mat-error *ngIf="checkValidTouched('Name')">name is required</mat-error>
+      <input matInput formControlName="Title" placeholder="Please enter the title" required>
+      <mat-error *ngIf="checkValidTouched('Title')">Title is required</mat-error>
     </mat-form-field>
-    <button mat-raised-button (click)="form.valid && onSubmit()">Submit</button>
+    <mat-form-field >
+      <textarea matInput formControlName="Description" placeholder="Please enter the description"></textarea>
+    </mat-form-field>
+    <mat-form-field >
+      <input matInput [matDatepicker]="picker" formControlName="DueDate" placeholder="When is it due?" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="checkValidTouched('DueDate')">Due Date is required</mat-error>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-select formControlName="Status" (ngModelChange)="onStatusChange($event)" placeholder="What is the status?" required>
+        <mat-option disabled>Please choose a status</mat-option>
+        <mat-option *ngFor="let status of statuses" [value]="status.value">
+          {{status.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="checkValidTouched('Status')">Status is required</mat-error>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-select formControlName="Priority" (ngModelChange)="onPriorityChange($event)" placeholder="What is the priority?" required>
+        <mat-option disabled>Please choose the priority</mat-option>
+        <mat-option *ngFor="let priority of priorities" [value]="priority.value">
+          {{priority.viewValue}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="checkValidTouched('Priority')">Priority is required</mat-error>
+    </mat-form-field>
+    <button mat-raised-button (click)="form.valid && onSubmit()" color="primary">Submit</button>
   </div>
 </form>
 
