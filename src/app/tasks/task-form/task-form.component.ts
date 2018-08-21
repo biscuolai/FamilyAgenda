@@ -69,18 +69,11 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
   ) { }
 
   ngOnInit() {
-    // set default Due Date to next month
-    let today = new Date();
-    today.setMonth(today.getMonth() + 1);
-    let year = today.getFullYear();
-    let month = today.getMonth();
-    let day = today.getDate();
-
     this.form = this.formBuilder.group({
       Id: ['', null],
       Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       Description: ['', null],
-      DueDate: [moment([year, month, day]), Validators.required],
+      DueDate: ['', Validators.required],
       Status: ['', Validators.required],
       Priority: ['', Validators.required],
       CreatedDate: ['', null],
@@ -142,23 +135,30 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
       console.log('form is valid');
     }
     else{
-      this.validateForm(this.form);
+      this.checkFormValidators(this.form);
     }
   }
 
-  validateForm(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(name => {
-      console.log(name);
-      const control = formGroup.get(name);
+  checkFormValidators(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(fieldName => {
+      console.log(fieldName);
+      const control = formGroup.get(fieldName);
       control.markAsDirty();
       if (control instanceof FormGroup){
-        this.validateForm(control);
+        this.checkFormValidators(control);
       }
     })
   }
 
   checkValidTouched(fieldName) {
     return !this.form.get(fieldName).valid && (this.form.get(fieldName).touched || this.form.get(fieldName).dirty);
+  }
+
+  checkEmailInvalid() {
+    let emailField = this.form.get('email');
+    if (emailField.errors){
+      return emailField.errors['email'] && emailField.touched;
+    }
   }
 
   // implements from iform-candeactivate 
@@ -181,6 +181,29 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
       }
     })
     return result;
+  }
+
+  private resetForm(){
+    // set default Due Date to next month
+    let today = new Date();
+    today.setMonth(today.getMonth() + 1);
+    let dueDateYear = today.getFullYear();
+    let dueDateMonth = today.getMonth();
+    let dueDateDay = today.getDate();
+
+    today.setMonth(today.getMonth() - 1);
+    let todayYear = today.getFullYear();
+    let todayMonth = today.getMonth();
+    let todayDay = today.getDate();
+
+    this.form.patchValue({
+      DueDate: [moment([dueDateYear, dueDateMonth, dueDateDay])],
+      CreatedDate: [moment([todayYear, todayMonth, todayDay])],
+      Title: '',
+      Description: '',
+      Status: '',
+      Priority: ''
+    });
   }
 
 }
