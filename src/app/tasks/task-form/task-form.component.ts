@@ -202,12 +202,12 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     const todayDay = today.getDate();
 
     this.form.patchValue({
-      DueDate: [moment([dueDateYear, dueDateMonth, dueDateDay])],
-      CreatedDate: [moment([todayYear, todayMonth, todayDay])],
+      DueDate: moment([dueDateYear, dueDateMonth, dueDateDay]),
+      CreatedDate: moment([todayYear, todayMonth, todayDay]),
       Title: '',
       Description: '',
-      Status: '2',
-      Priority: '2'
+      Status: '0',
+      Priority: '0'
     });
   }
 
