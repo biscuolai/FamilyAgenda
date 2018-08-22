@@ -215,7 +215,11 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   }
 
   ngOnDestroy() {
-    this.paramSubscription.unsubscribe();
-    this.taskSubscription.unsubscribe();
+    if (this.paramSubscription != null) {
+      this.paramSubscription.unsubscribe();
+    }
+    if (this.taskSubscription != null) {
+      this.taskSubscription.unsubscribe();
+    }
   }
 }
