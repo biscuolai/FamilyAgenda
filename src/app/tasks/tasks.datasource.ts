@@ -3,7 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-import { Task } from './../shared/task';
+import { Task } from '../shared/models/task';
 
 /**
  * Data source for the TaskDatagrid. This class should

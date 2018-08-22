@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 import { TasksService } from '../tasks.service';
-import { Task } from '../../shared/task';
+import { Task } from '../../shared/models/task';
 import { IFormCanDeactivate } from '../../guards/iform-candeactivate';
-import { Status, Priority } from './../../shared/task';
+import { Status } from '../../shared/models/status';
+import { Priority } from '../../shared/models/priority';
+import { DropdownService } from '../../shared/services/dropdown.service';
 
 // Datepicker libraries
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -35,37 +37,35 @@ const moment = _moment;
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
-export class TaskFormComponent implements OnInit, IFormCanDeactivate {
+export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate {
 
+  // Reactive form variable
   form: FormGroup;
-  subscription: Subscription;
-  task: Task;
+
+  // Subscription variables
+  paramSubscription: Subscription;
+
+  // parameter from the url - id configured in routing
   id: string;
-  selectedStatus: any;
-  selectedPriority: any;
-  selectedStatusValue: string = '0';
-  selectedPriorityValue: string = '0';
 
-  statuses: Status[] = [
-    { value: '0', viewValue: 'New' },
-    { value: '1', viewValue: 'Reviewing' },
-    { value: '2', viewValue: 'In Progress' },
-    { value: '3', viewValue: 'Completed' },
-    { value: '4', viewValue: 'Cancelled' }
-  ];
+  // modules
+  task: Task;
+  statusList: Observable<Status[]>;
+  priorityList: Observable<Priority[]>;
 
-  priorities: Priority[] = [
-    { value: '0', viewValue: "Low" },
-    { value: '1', viewValue: "Medium" },
-    { value: '2', viewValue: "High" },
-  ];
+  // Select / selected items
+  selectedStatus: Status;
+  selectedPriority: Priority;
+  selectedStatusValue: number;
+  selectedPriorityValue: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private tasksService: TasksService,
-    private router: Router,
-    private adapter: DateAdapter<any>
+    // private router: Router,
+    private adapter: DateAdapter<any>,
+    private dropdownService: DropdownService
   ) { }
 
   ngOnInit() {
@@ -81,25 +81,28 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
       AssignedTo: ['', null]
     });
 
+    // get the Status list - Observable
+    this.statusList = this.dropdownService.getStatus();
+    // get the Priority list - Observable
+    this.priorityList = this.dropdownService.getPriority();
+
     // set location of DatePicker for English-Australia dd/MM/yyyy
     this.adapter.setLocale('en-AU');
 
-    this.subscription = this.route.params.subscribe(
+    this.paramSubscription = this.route.params.subscribe(
       (params: any) => {
         this.id = params['id'];
 
         // no param id has been passed, therefore it is not edit mode
-        if (this.id === undefined){
-          this.form.reset();
-        }
-        else{
+        if (this.id === undefined) {
+          this.resetForm();
+        } else {
           this.task = this.tasksService.getTask(this.id);
 
           console.log('task returned', this.task);
 
           // if task was found and returned data
-          if (this.task !== null)
-          {
+          if (this.task !== null) {
             this.form.get('Id').setValue(this.task['Id']);
             this.form.get('Title').setValue(this.task.Title);
             this.form.get('Description').setValue(this.task.Description);
@@ -116,7 +119,7 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();  
+    this.paramSubscription.unsubscribe();
   }
 
   onStatusChange(newStatusValue) {
@@ -130,24 +133,23 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
   onSubmit() {
 
     console.log('form', this.form);
-    
-    if (this.form.valid){
+
+    if (this.form.valid) {
       console.log('form is valid');
-    }
-    else{
+    } else {
       this.checkFormValidators(this.form);
     }
   }
 
-  checkFormValidators(formGroup: FormGroup){
+  checkFormValidators(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(fieldName => {
       console.log(fieldName);
       const control = formGroup.get(fieldName);
       control.markAsDirty();
-      if (control instanceof FormGroup){
+      if (control instanceof FormGroup) {
         this.checkFormValidators(control);
       }
-    })
+    });
   }
 
   checkValidTouched(fieldName) {
@@ -155,54 +157,57 @@ export class TaskFormComponent implements OnInit, IFormCanDeactivate {
   }
 
   checkEmailInvalid() {
-    let emailField = this.form.get('email');
-    if (emailField.errors){
+    const emailField = this.form.get('email');
+    if (emailField.errors) {
       return emailField.errors['email'] && emailField.touched;
     }
   }
 
-  // implements from iform-candeactivate 
+  // implements from iform-candeactivate
   canExitPage() {
-    if (this.isFormDirty(this.form)){
+    if (this.isFormDirty(this.form)) {
       return confirm('Are you sure you want to exit the page?');
     }
     return true;
   }
 
   private isFormDirty(formGroup: FormGroup) {
-    let result: boolean = false;
+    let result = false;
     Object.keys(formGroup.controls).forEach(name => {
       const control = formGroup.get(name);
       if (control.dirty) {
         result = true;
       }
-      if (control instanceof FormGroup && result == false) {
+      if (control instanceof FormGroup && result === false) {
         this.isFormDirty(control);
       }
-    })
+    });
+
     return result;
   }
 
-  private resetForm(){
+  private resetForm() {
+    this.form.reset();
+
     // set default Due Date to next month
-    let today = new Date();
+    const today = new Date();
     today.setMonth(today.getMonth() + 1);
-    let dueDateYear = today.getFullYear();
-    let dueDateMonth = today.getMonth();
-    let dueDateDay = today.getDate();
+    const dueDateYear = today.getFullYear();
+    const dueDateMonth = today.getMonth();
+    const dueDateDay = today.getDate();
 
     today.setMonth(today.getMonth() - 1);
-    let todayYear = today.getFullYear();
-    let todayMonth = today.getMonth();
-    let todayDay = today.getDate();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+    const todayDay = today.getDate();
 
     this.form.patchValue({
       DueDate: [moment([dueDateYear, dueDateMonth, dueDateDay])],
       CreatedDate: [moment([todayYear, todayMonth, todayDay])],
       Title: '',
       Description: '',
-      Status: '',
-      Priority: ''
+      Status: '2',
+      Priority: '2'
     });
   }
 

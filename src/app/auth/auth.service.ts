@@ -1,4 +1,4 @@
-import { User } from '../shared/user';
+import { User } from '../shared/models/user';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 

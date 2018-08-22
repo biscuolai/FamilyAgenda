@@ -1,5 +1,5 @@
-import { AuthService } from './../auth.service';
-import { User } from './../../shared/user';
+import { AuthService } from '../auth.service';
+import { User } from '../../shared/models/user';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';

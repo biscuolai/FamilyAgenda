@@ -6,32 +6,39 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TasksComponent } from './tasks.component';
 import { TasksService } from './tasks.service';
-import { MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule, MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule, MatMenuModule, MatRadioModule, MatTabsModule, MatStepperModule } from '@angular/material';
-import { MatInputModule } from '@angular/material/input'
-import { MatSelectModule } from '@angular/material/select'
+
+import {
+  MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
+  MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
+  MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule,
+  MatMenuModule, MatRadioModule, MatTabsModule, MatStepperModule
+} from '@angular/material';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TaskNotFoundComponent } from './task-not-found/task-not-found.component';
 import { TasksRoutingModule } from './tasks.routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
-import { FormDeactivateGuard } from './../guards/form-deactivate.guard';
-import { FormDebugComponent } from './../shared/form-debug/form-debug.component';
-import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
+import { FormDeactivateGuard } from '../guards/form-deactivate.guard';
+import { TaskDetailsResolverGuard } from '../guards/task-details.resolver';
+import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
-    declarations: [ 
+    declarations: [
         TasksComponent,
         TaskDetailComponent,
         TaskNotFoundComponent,
-        TaskFormComponent,
-        FormDebugComponent
+        TaskFormComponent
     ],
-    imports: [ 
+    imports: [
         CommonModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
 
         TasksRoutingModule,
+        SharedModule,
 
         MatToolbarModule,
         MatButtonModule,
@@ -64,4 +71,4 @@ import { TaskDetailsResolverGuard } from './../guards/task-details.resolver';
         TaskDetailsResolverGuard
     ],
 })
-export class TasksModule {}
+export class TasksModule { }

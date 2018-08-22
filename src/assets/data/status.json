@@ -1,0 +1,22 @@
+[
+    {
+        "id": "0",
+        "name": "New"
+    },
+    {
+        "id": "1",
+        "name": "Reviewing"
+    },
+    {
+        "id": "2",
+        "name": "In Progress"
+    },
+    {
+        "id": "3",
+        "name": "Completed"
+    },
+    {
+        "id": "4",
+        "name": "Cancelled"
+    }
+]

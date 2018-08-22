@@ -1,8 +1,8 @@
-import { TasksService } from './../tasks.service';
-import { TasksDataSource } from './../tasks.datasource';
+import { TasksService } from '../tasks.service';
+import { TasksDataSource } from '../tasks.datasource';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Task } from '../../shared/task';
+import { Task } from '../../shared/models/task';
 
 @Component({
   selector: 'task-datagrid',

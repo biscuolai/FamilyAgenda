@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Task } from '../../shared/task';
-//import { TasksService } from '../tasks.service';
+import { Task } from '../../shared/models/task';
+// import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task-detail',
   templateUrl: './task-detail.component.html',
   styleUrls: ['./task-detail.component.css']
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, OnDestroy {
 
   id: number;
   subscription: Subscription;
@@ -18,10 +18,9 @@ export class TaskDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    //private tasksService: TasksService,
+    // private tasksService: TasksService,
     private router: Router
-  ) { 
-  }
+  ) { }
 
   ngOnInit() {
     // this.subscription = this.route.params.subscribe(
@@ -48,10 +47,10 @@ export class TaskDetailComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();  
+    this.subscription.unsubscribe();
   }
 
-  editTask(){
+  editTask() {
     this.router.navigate(['/tasks', this.task.Id, 'edit']);
   }
 }

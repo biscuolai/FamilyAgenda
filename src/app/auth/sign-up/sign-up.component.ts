@@ -1,6 +1,6 @@
-import { AuthService } from './../auth.service';
+import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from './../../shared/user';
+import { User } from '../../shared/models/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
