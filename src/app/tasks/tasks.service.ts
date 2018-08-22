@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
 import { Task } from '../shared/models/task';
 
 @Injectable({
@@ -7,30 +11,42 @@ import { Task } from '../shared/models/task';
 })
 export class TasksService {
 
-  task: Task;
-  private tasks: Task[] = [
-    {Id: '1', Title: 'Task 1', Description: 'Description 1', DueDate: new Date(), AssignedTo: 'Ilson 1', Status: '0', CreatedDate: new Date(), LastModifiedDate: null, Priority: '0' },
-    {Id: '2', Title: 'Task 2', Description: 'Description 2', DueDate: new Date(), AssignedTo: 'Ilson 2', Status: '0', CreatedDate: new Date(), LastModifiedDate: null, Priority: '0' },
-    {Id: '3', Title: 'Task 3', Description: 'Description 3', DueDate: new Date(), AssignedTo: 'Ilson 3', Status: '0', CreatedDate: new Date(), LastModifiedDate: null, Priority: '0' },
-  ]
+  tasks: Task[];
+  // subscription: Subscription;
 
-  getTasks(){
-    return this.tasks;
+  constructor(private http: HttpClient) { }
+
+  getTasks() {
+    const tasksUrl = 'assets/data/tasks.json';
+    return this.http.get<Task[]>(tasksUrl);
   }
 
-  getTask(id: string){
-    let tasks = this.getTasks();
-
-    for (let index = 0; index < tasks.length; index++) {
-      const element = tasks[index];
-      //console.log(element, id);
-      if (element.Id == id){
-        return element;
-      }
-    }
-
-    return null;
+  getTask(id: string): Observable<Task> {
+    return this.getTasks()
+      .pipe(map(tasks => tasks.find(task => task.Id === id)));
   }
 
-  constructor() { }
+  // getTask(id: string): Observable<Task> {
+  //   this.subscription = this.getTasks().subscribe(
+  //     (data: Task[]) => {
+  //       this.tasks = data;
+
+  //       console.log('inside gettask', data);
+
+  //       for (let i = 0; i < this.tasks.length; i++) {
+  //         const task = this.tasks[i];
+  //         console.log('for', task, task.Id, id);
+  //         if (task.Id === id) {
+  //           return of(task);
+  //         }
+  //       }
+  //     }
+  //   );
+  //   return of(null);
+  // }
+
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
+
 }

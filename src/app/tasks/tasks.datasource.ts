@@ -14,8 +14,8 @@ export class TasksDataSource extends DataSource<Task> {
 
   data: Task[] = this.tasks;
 
-  constructor(private paginator: MatPaginator, 
-              private sort: MatSort, 
+  constructor(private paginator: MatPaginator,
+              private sort: MatSort,
               public tasks: Task[],
             ) {
     super();
@@ -79,12 +79,12 @@ export class TasksDataSource extends DataSource<Task> {
         case 'Id': return compare(+a.Id, +b.Id, isAsc);
         case 'Title': return compare(a.Title, b.Title, isAsc);
         case 'DueDate': return compare(a.DueDate, b.DueDate, isAsc);
-        //case 'assignedTo': return compare(a.AssignedTo, b.AssignedTo, isAsc);
+        // case 'assignedTo': return compare(a.AssignedTo, b.AssignedTo, isAsc);
         default: return 0;
       }
     });
   }
-} 
+}
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a, b, isAsc) {

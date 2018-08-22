@@ -44,6 +44,7 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
 
   // Subscription variables
   paramSubscription: Subscription;
+  taskSubscription: Subscription;
 
   // parameter from the url - id configured in routing
   id: string;
@@ -97,29 +98,31 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
         if (this.id === undefined) {
           this.resetForm();
         } else {
-          this.task = this.tasksService.getTask(this.id);
+          this.taskSubscription = this.tasksService.getTask(this.id)
+            .subscribe(
+              (data: Task) => {
+                this.task = data;
 
-          console.log('task returned', this.task);
+                this.form.setValue(this.task);
 
-          // if task was found and returned data
-          if (this.task !== null) {
-            this.form.get('Id').setValue(this.task['Id']);
-            this.form.get('Title').setValue(this.task.Title);
-            this.form.get('Description').setValue(this.task.Description);
-            this.form.get('DueDate').setValue(this.task.DueDate);
-            this.form.get('AssignedTo').setValue(this.task.AssignedTo);
-            this.form.get('Status').setValue(this.task.Status);
-            this.form.get('CreatedDate').setValue(this.task.CreatedDate);
-            this.form.get('LastModifiedDate').setValue(this.task.LastModifiedDate);
-            this.form.get('Priority').setValue(this.task.Priority);
-          }
+                // if task was found and returned data
+                // if (this.task !== null) {
+                //   this.form.get('Id').setValue(this.task['Id']);
+                //   this.form.get('Title').setValue(this.task.Title);
+                //   this.form.get('Description').setValue(this.task.Description);
+                //   this.form.get('DueDate').setValue(this.task.DueDate);
+                //   this.form.get('AssignedTo').setValue(this.task.AssignedTo);
+                //   this.form.get('Status').setValue(this.task.Status);
+                //   this.form.get('CreatedDate').setValue(this.task.CreatedDate);
+                //   this.form.get('LastModifiedDate').setValue(this.task.LastModifiedDate);
+                //   this.form.get('Priority').setValue(this.task.Priority);
+                // }
+
+              }
+            );
         }
       }
     );
-  }
-
-  ngOnDestroy() {
-    this.paramSubscription.unsubscribe();
   }
 
   onStatusChange(newStatusValue) {
@@ -211,4 +214,8 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     });
   }
 
+  ngOnDestroy() {
+    this.paramSubscription.unsubscribe();
+    this.taskSubscription.unsubscribe();
+  }
 }
