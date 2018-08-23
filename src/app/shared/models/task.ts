@@ -1,26 +1,26 @@
 export class Task {
 
     // public properties
-    Id: string;
+    Id: number;
     Title: string;
     Description: string;
     DueDate: Date;
     AssignedTo: string;
-    Status: string;
+    Status: number;
     CreatedDate: Date;
     LastModifiedDate: Date;
-    Priority: string;
+    Priority: number;
 
     constructor(
-        id: string,
+        id: number,
         title: string,
         description: string,
         dueDate: Date,
         assignedTo: string,
-        status: string,
+        status: number,
         createdDate: Date,
         lastModifiedDate: Date,
-        priority: string
+        priority: number
     ) {
         this.Id = id;
         this.Title = title;

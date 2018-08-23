@@ -21,27 +21,27 @@ export class TasksService {
     return this.http.get<Task[]>(tasksUrl);
   }
 
-  getTask(id: string): Observable<Task> {
+  getTask(id: number): Observable<Task> {
     return this.getTasks()
-      .pipe(map(tasks => tasks.find(task => task.Id === id)));
+      .pipe(map(tasks => tasks.find(task => task.Id == id)));
   }
 
-  getTasksDataGrid(
-    filter = '', sortOrder = 'asc',
-    pageNumber = 0, pageSize = 3):  Observable<Task[]> {
+  // getTasksDataGrid(
+  //   filter = '', sortOrder = 'asc',
+  //   pageNumber = 0, pageSize = 3):  Observable<Task[]> {
 
-    const tasksUrl = 'assets/data/tasks.json';
+  //   const tasksUrl = 'assets/data/tasks.json';
 
-    console.log('inside getTasksDataGrid');
+  //   console.log('inside getTasksDataGrid');
 
-    return this.http.get<Task[]>(tasksUrl, {
-        params: new HttpParams()
-            .set('filter', filter)
-            .set('sortOrder', sortOrder)
-            .set('pageNumber', pageNumber.toString())
-            .set('pageSize', pageSize.toString())
-    });
-  }
+  //   return this.http.get<Task[]>(tasksUrl, {
+  //       params: new HttpParams()
+  //           .set('filter', filter)
+  //           .set('sortOrder', sortOrder)
+  //           .set('pageNumber', pageNumber.toString())
+  //           .set('pageSize', pageSize.toString())
+  //   });
+  // }
 
   // getTask(id: string): Observable<Task> {
   //   this.subscription = this.getTasks().subscribe(

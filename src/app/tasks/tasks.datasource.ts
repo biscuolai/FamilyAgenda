@@ -82,7 +82,7 @@ export class TasksDataSource extends DataSource<Task> {
         case 'Id': return compare(+a.Id, +b.Id, isAsc);
         case 'Title': return compare(a.Title, b.Title, isAsc);
         case 'DueDate': return compare(a.DueDate, b.DueDate, isAsc);
-        // case 'assignedTo': return compare(a.AssignedTo, b.AssignedTo, isAsc);
+        case 'Priority': return compare(a.Priority, b.Priority, isAsc);
         default: return 0;
       }
     });

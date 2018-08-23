@@ -47,7 +47,7 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
   taskSubscription: Subscription;
 
   // parameter from the url - id configured in routing
-  id: string;
+  id: number;
 
   // modules
   task: Task;
