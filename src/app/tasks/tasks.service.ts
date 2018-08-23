@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Task } from '../shared/models/task';
 
@@ -16,7 +16,7 @@ export class TasksService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks() {
+  getTasks(): Observable<Task[]> {
     const tasksUrl = 'assets/data/tasks.json';
     return this.http.get<Task[]>(tasksUrl);
   }
@@ -24,6 +24,23 @@ export class TasksService {
   getTask(id: string): Observable<Task> {
     return this.getTasks()
       .pipe(map(tasks => tasks.find(task => task.Id === id)));
+  }
+
+  getTasksDataGrid(
+    filter = '', sortOrder = 'asc',
+    pageNumber = 0, pageSize = 3):  Observable<Task[]> {
+
+    const tasksUrl = 'assets/data/tasks.json';
+
+    console.log('inside getTasksDataGrid');
+
+    return this.http.get<Task[]>(tasksUrl, {
+        params: new HttpParams()
+            .set('filter', filter)
+            .set('sortOrder', sortOrder)
+            .set('pageNumber', pageNumber.toString())
+            .set('pageSize', pageSize.toString())
+    });
   }
 
   // getTask(id: string): Observable<Task> {

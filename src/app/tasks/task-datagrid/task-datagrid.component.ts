@@ -41,7 +41,12 @@ export class TaskDatagridComponent implements OnInit, OnDestroy {
       );
   }
 
+  onRowClicked(row) {
+    console.log('Row clicked: ', row);
+  }
+
   ngOnDestroy() {
+    console.log('ondestroy - datagrid component');
     this.subscription.unsubscribe();
   }
 

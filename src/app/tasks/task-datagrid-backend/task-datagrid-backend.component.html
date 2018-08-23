@@ -1,0 +1,38 @@
+<!-- <div class="task">
+
+  <mat-form-field>
+    <input matInput placeholder="Search tasks" #input>
+  </mat-form-field>
+
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-table class="tasks-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="Id" matSortDirection="asc"
+    matSortDisableClear>
+
+    <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.Id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Title">
+      <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let row">{{row.Title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DueDate">
+      <mat-header-cell *matHeaderCellDef>Due Date</mat-header-cell>
+      <mat-cell class="duedate-cell" *matCellDef="let row">{{row.DueDate | date: 'dd MMM yyyy'}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
+
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[3, 5, 10]" [pageSize]="3">
+  </mat-paginator>
+
+</div> -->

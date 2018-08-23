@@ -69,6 +69,9 @@ export class TasksDataSource extends DataSource<Task> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getSortedData(data: Task[]) {
+
+    console.log('inside getSortedData', data);
+
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

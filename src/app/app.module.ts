@@ -1,4 +1,3 @@
-import { TaskDatagridComponent } from './tasks/task-datagrid/task-datagrid.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +11,8 @@ import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from './app.routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
+import { TaskDatagridComponent } from './tasks/task-datagrid/task-datagrid.component';
+// import { TaskDatagridBackendComponent } from './tasks/task-datagrid-backend/task-datagrid-backend.component';
 
 import {
   MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
@@ -31,7 +32,8 @@ import { AuthModule } from './auth/auth.module';
     HomeComponent,
     MainNavigationComponent,
     PageNotFoundComponent,
-    TaskDatagridComponent
+    TaskDatagridComponent,
+    // TaskDatagridBackendComponent
   ],
   imports: [
     BrowserModule,
