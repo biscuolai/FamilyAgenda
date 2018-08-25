@@ -94,6 +94,8 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
       (params: any) => {
         this.id = params['id'];
 
+        console.log('this.id', this.id);
+
         // no param id has been passed, therefore it is not edit mode
         if (this.id === undefined) {
           this.resetForm();
@@ -101,6 +103,9 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
           this.taskSubscription = this.tasksService.getTask(this.id)
             .subscribe(
               (data: Task) => {
+
+                console.log('data', data);
+
                 this.task = data;
 
                 this.form.setValue(this.task);

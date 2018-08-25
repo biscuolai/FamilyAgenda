@@ -1,11 +1,13 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { TasksService } from '../tasks.service';
 import { TasksDataSource } from '../tasks.datasource';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Task } from '../../shared/models/task';
 import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import { DeleteDialogComponent } from './../../shared/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'task-datagrid',
@@ -37,7 +39,8 @@ export class TaskDatagridComponent implements OnInit, OnDestroy {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -81,6 +84,18 @@ export class TaskDatagridComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     // console.log('ondestroy - datagrid component');
     this.subscription.unsubscribe();
+  }
+
+  deleteItem(i: number, id: number, title: string, dueDate: string, description: string) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {id: id, title: title, dueDate: dueDate, description: description}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // code for delete record
+      }
+    });
   }
 
 }

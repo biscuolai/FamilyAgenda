@@ -11,7 +11,7 @@ import {
   MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
   MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
   MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule,
-  MatMenuModule, MatRadioModule, MatTabsModule, MatStepperModule
+  MatMenuModule, MatRadioModule, MatTabsModule, MatStepperModule, MatDialogModule
 } from '@angular/material';
 
 import { MatInputModule } from '@angular/material/input';
@@ -29,7 +29,7 @@ import { SharedModule } from './../shared/shared.module';
         TasksComponent,
         TaskDetailComponent,
         TaskNotFoundComponent,
-        TaskFormComponent
+        TaskFormComponent,
     ],
     imports: [
         CommonModule,
@@ -62,13 +62,14 @@ import { SharedModule } from './../shared/shared.module';
         MatRadioModule,
         MatExpansionModule,
         MatTabsModule,
-        MatStepperModule
+        MatStepperModule,
+        MatDialogModule
     ],
     exports: [],
     providers: [
         TasksService,
         FormDeactivateGuard,
         TaskDetailsResolverGuard
-    ],
+    ]
 })
 export class TasksModule { }

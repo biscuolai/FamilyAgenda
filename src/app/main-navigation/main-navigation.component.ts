@@ -17,13 +17,13 @@ export class MainNavigationComponent {
     .pipe(
       map(result => result.matches)
     );
-    
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private authService: AuthService
   ) {}
-  
-  logout(){
+
+  logout() {
     this.authService.signout();
   }
 }

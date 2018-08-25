@@ -18,13 +18,14 @@ import {
   MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
   MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
   MatFormFieldModule, MatRippleModule, MatNativeDateModule, MatGridListModule, MatCardModule,
-  MatMenuModule, MatRadioModule, MatTabsModule
+  MatMenuModule, MatRadioModule, MatTabsModule, MatDialogModule
 } from '@angular/material';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthModule } from './auth/auth.module';
+import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
     MainNavigationComponent,
     PageNotFoundComponent,
     TaskDatagridComponent,
+    DeleteDialogComponent
     // TaskDatagridBackendComponent
   ],
   imports: [
@@ -66,12 +68,14 @@ import { AuthModule } from './auth/auth.module';
     MatMenuModule,
     MatRadioModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule { }

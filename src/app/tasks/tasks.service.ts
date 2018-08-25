@@ -26,6 +26,12 @@ export class TasksService {
       .pipe(map(tasks => tasks.find(task => task.Id == id)));
   }
 
+  deleteTask(id: number) {
+    const tasksUrl = 'assets/data/tasks.json';
+    alert('task delete id: ' + id);
+    // this.http.put<Task>(tasksUrl, id);
+  }
+
   // getTasksDataGrid(
   //   filter = '', sortOrder = 'asc',
   //   pageNumber = 0, pageSize = 3):  Observable<Task[]> {

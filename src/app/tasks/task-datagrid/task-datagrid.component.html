@@ -5,9 +5,12 @@
 
     <ng-container matColumnDef="actions">
       <mat-header-cell class="action-cell" *matHeaderCellDef>Action</mat-header-cell>
-      <mat-cell class="action-cell" *matCellDef="let row; let i=index;" [routerLink]="['/tasks', row.Id, 'edit']">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </mat-cell>
+      <mat-cell class="action-cell" *matCellDef="let row; let i=index;" >
+        <mat-icon aria-label="Edit" [routerLink]="['/tasks', row.Id, 'edit']">edit</mat-icon>
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.DueDate, row.Description)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </mat-cell>
     </ng-container>
 
         <!-- Id Column -->
