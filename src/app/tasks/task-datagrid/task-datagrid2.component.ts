@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Observable, BehaviorSubject, merge, fromEvent } from 'rxjs';
 import { DataSource} from '@angular/cdk/collections';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Task } from './../../shared/models/task';
 import { TasksService } from './../tasks.service';
@@ -31,8 +32,14 @@ export class TaskDatagrid2Component implements OnInit {
   index: number;
   id: number;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  .pipe(
+    map(result => result.matches)
+  );
+
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
+              private breakpointObserver: BreakpointObserver,
               public tasksService: TasksService) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

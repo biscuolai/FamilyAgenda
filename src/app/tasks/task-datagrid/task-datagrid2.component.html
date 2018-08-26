@@ -30,8 +30,8 @@
 
         <!-- Id Column -->
     <ng-container matColumnDef="Id">
-      <mat-header-cell class="action-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-      <mat-cell class="action-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
+      <mat-header-cell class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell class="id-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
     </ng-container>
 
     <!-- Title Column -->
@@ -58,13 +58,13 @@
 
     <!-- actions -->
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef class="action-cell">
         <button mat-icon-button color="primary" (click)="addNew()">
           <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
         </button>
       </mat-header-cell>
 
-      <mat-cell *matCellDef="let row; let i=index;">
+      <mat-cell *matCellDef="let row; let i=index;" class="action-cell">
         <button mat-icon-button color="accent" (click)="startEdit(i, row.Id, row.Title, row.Description)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>

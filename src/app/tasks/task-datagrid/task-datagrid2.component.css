@@ -46,7 +46,13 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
 }
 
 .action-cell {
-  max-width: 70px;
+  max-width: 90px;
+  min-width: 90px;
+}
+
+.id-cell {
+  max-width: 40px;
+  min-width: 40px;
 }
 
 .title-cell {
