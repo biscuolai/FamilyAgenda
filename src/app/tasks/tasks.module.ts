@@ -72,6 +72,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     MatDialogModule
   ],
   exports: [
+    TaskFormComponent,
     DeleteDialogComponent,
     EditDialogComponent,
     AddDialogComponent

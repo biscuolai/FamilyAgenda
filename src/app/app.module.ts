@@ -1,3 +1,4 @@
+import { FormDebugComponent } from './shared/form-debug/form-debug.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +30,7 @@ import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.com
 import { AddDialogComponent } from './tasks/dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './tasks/dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './tasks/dialogs/delete/delete.dialog.component';
+import { TaskFormComponent } from './tasks/task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { DeleteDialogComponent } from './tasks/dialogs/delete/delete.dialog.comp
     TaskDatagrid2Component,
     DeleteDialogComponent,
     EditDialogComponent,
-    AddDialogComponent
+    AddDialogComponent,
+    TaskFormComponent,
+    FormDebugComponent
   ],
   imports: [
     BrowserModule,
