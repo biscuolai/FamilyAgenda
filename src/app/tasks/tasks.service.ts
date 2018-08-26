@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 
 import { Task } from '../shared/models/task';
 
@@ -11,14 +11,19 @@ import { Task } from '../shared/models/task';
 })
 export class TasksService {
 
+  private readonly API_URL = 'assets/data/tasks.json';
+
+  dataChange: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
+  // Temporarily stores data from dialogs
+  dialogData: any;
+
   tasks: Task[];
   // subscription: Subscription;
 
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]> {
-    const tasksUrl = 'assets/data/tasks.json';
-    return this.http.get<Task[]>(tasksUrl);
+    return this.http.get<Task[]>(this.API_URL);
   }
 
   getTask(id: number): Observable<Task> {
@@ -26,11 +31,81 @@ export class TasksService {
       .pipe(map(tasks => tasks.find(task => task.Id == id)));
   }
 
-  deleteTask(id: number) {
-    const tasksUrl = 'assets/data/tasks.json';
-    alert('task delete id: ' + id);
-    // this.http.put<Task>(tasksUrl, id);
+  // deleteTask(id: number) {
+  //   alert('task delete id: ' + id);
+  //   // this.http.put<Task>(this.API_URL, id);
+  // }
+
+  get data(): Task[] {
+    return this.dataChange.value;
   }
+
+  getDialogData() {
+    return this.dialogData;
+  }
+
+  /** CRUD METHODS */
+  getAllTasks(): void {
+    this.http.get<Task[]>(this.API_URL).subscribe(data => {
+        this.dataChange.next(data);
+      },
+      (error: HttpErrorResponse) => {
+      console.log (error.name + ' ' + error.message);
+      });
+  }
+
+  // DEMO ONLY, you can find working methods below
+  addTask (task: Task): void {
+    this.dialogData = task;
+  }
+
+  updateTask (task: Task): void {
+    this.dialogData = task;
+  }
+
+  deleteTask (id: number): void {
+    console.log(id);
+  }
+}
+
+
+
+/* REAL LIFE CRUD Methods I've used in my projects. ToasterService uses Material Toasts for displaying messages:
+    // ADD, POST METHOD
+    addItem(kanbanItem: KanbanItem): void {
+    this.http.post(this.API_URL, kanbanItem).subscribe(data => {
+      this.dialogData = kanbanItem;
+      this.toasterService.showToaster('Successfully added', 3000);
+      },
+      (err: HttpErrorResponse) => {
+      this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+    });
+   }
+    // UPDATE, PUT METHOD
+     updateItem(kanbanItem: KanbanItem): void {
+    this.http.put(this.API_URL + kanbanItem.id, kanbanItem).subscribe(data => {
+        this.dialogData = kanbanItem;
+        this.toasterService.showToaster('Successfully edited', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      }
+    );
+  }
+  // DELETE METHOD
+  deleteItem(id: number): void {
+    this.http.delete(this.API_URL + id).subscribe(data => {
+      console.log(data['']);
+        this.toasterService.showToaster('Successfully deleted', 3000);
+      },
+      (err: HttpErrorResponse) => {
+        this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
+      }
+    );
+  }
+*/
+
+
 
   // getTasksDataGrid(
   //   filter = '', sortOrder = 'asc',
@@ -72,4 +147,4 @@ export class TasksService {
   //   this.subscription.unsubscribe();
   // }
 
-}
+

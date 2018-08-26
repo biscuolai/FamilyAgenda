@@ -1,0 +1,72 @@
+<div class="task">
+
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter tasks">
+      </mat-form-field>
+      <span class="spacer"></span>
+      Reload data:
+      <button mat-icon-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+  </div>
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-table #table class="tasks-table mat-elevation-z8" [dataSource]="dataSource"
+      matSort matSortActive="Priority" matSortDirection="desc" matSortDisableClear aria-label="Elements">
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell class="action-cell" *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell class="action-cell" *matCellDef="let row; let i=index;" >
+        <mat-icon aria-label="Edit" [routerLink]="['/tasks', row.Id, 'edit']">edit</mat-icon>
+        <!-- <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.DueDate, row.Description)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button> -->
+      </mat-cell>
+    </ng-container>
+
+        <!-- Id Column -->
+    <ng-container matColumnDef="Id">
+      <mat-header-cell class="action-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell class="action-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="Title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+      <mat-cell class="title-cell" *matCellDef="let row">{{row.Title}}</mat-cell>
+    </ng-container>
+
+    <!-- DueDate Column -->
+    <ng-container matColumnDef="DueDate">
+      <mat-header-cell class="duedate-cell" *matHeaderCellDef mat-sort-header>Due Date</mat-header-cell>
+      <mat-cell class="duedate-cell" *matCellDef="let row">{{row.DueDate | date: 'dd MMM yyyy'}}</mat-cell>
+    </ng-container>
+
+    <!-- Priority Column -->
+    <ng-container matColumnDef="Priority">
+      <mat-header-cell class="priority-cell" *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+      <mat-cell *matCellDef="let row"
+        [ngClass]="row.Priority == 0 ? 'mat-cell-LowPriority' : row.Priority == 1 ? 'mat-cell-MedPriority' : 'mat-cell-highPriority'">
+        <mat-icon *ngIf="!(isHandset$ | async)">{{ getPriorityIconName(row.DueDate) }}</mat-icon>
+        {{ getPriorityDisplayName(row.Priority, row.DueDate) }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="onRowClicked(row)"></mat-row>
+  </mat-table>
+
+  <mat-paginator class="mat-elevation-z8"
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    [length]="dataSource?.filteredData?.length"
+    [pageIndex]="0"
+    [pageSize]="5"
+    showFirstLastButtons>
+  </mat-paginator>
+
+</div>

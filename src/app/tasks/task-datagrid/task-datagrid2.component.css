@@ -1,0 +1,108 @@
+.task {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
+  padding-right: 0;
+}
+
+.mat-cell-highPriority{
+  font-style: italic;
+  background-color:tomato;
+  margin-right: 2%;
+  display:flex;
+  justify-content:space-evenly;
+  max-width: 100px;
+}
+
+.mat-cell-MedPriority{
+  font-style: bold;
+  background-color:khaki;
+  margin-right: 2%;
+  display:flex;
+  justify-content:space-evenly;
+  max-width: 100px;
+}
+
+.mat-cell-LowPriority{
+  font-style: bold;
+  background-color:springgreen;
+  margin-right: 2%;
+  display:flex;
+  justify-content:space-evenly;
+  max-width: 100px;
+}
+
+.priority-cell {
+  max-width: 100px;
+}
+
+.task-thumbnail {
+  width: 150px;
+  margin: 20px auto 0 auto;
+  display: block;
+}
+
+.action-cell {
+  max-width: 70px;
+}
+
+.title-cell {
+  text-align: left;
+  margin: 10px auto;
+}
+
+.duedate-cell {
+  max-width: 120px;
+  text-align: center;
+}
+
+.duedate-cell mat-icon {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.spinner-container {
+  height: 360px;
+  width: 390px;
+  position: fixed;
+}
+
+.tasks-table {
+  min-height: 360px;
+  margin-top: 10px;
+}
+
+.spinner-container mat-spinner {
+  margin: 130px auto 0 auto;
+}
+
+/* Toolbar */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Filter */
+.form {
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  margin-top: 3%;
+}
+
+/* Mat table */
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  font-size: 14px;
+  font-style: italic;
+}
