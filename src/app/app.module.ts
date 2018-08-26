@@ -25,8 +25,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthModule } from './auth/auth.module';
-import { DeleteDialogComponent } from './shared/delete-dialog/delete-dialog.component';
 import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.component';
+import { AddDialogComponent } from './shared/dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './shared/dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './shared/dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +37,12 @@ import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.com
     MainNavigationComponent,
     PageNotFoundComponent,
     TaskDatagridComponent,
-    DeleteDialogComponent,
+    // DeleteDialogComponent,
     // TaskDatagridBackendComponent
-    TaskDatagrid2Component
+    TaskDatagrid2Component,
+    DeleteDialogComponent,
+    EditDialogComponent,
+    AddDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,10 @@ import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.com
     AuthGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent]
+  entryComponents: [
+    DeleteDialogComponent,
+    EditDialogComponent,
+    AddDialogComponent
+  ]
 })
 export class AppModule { }

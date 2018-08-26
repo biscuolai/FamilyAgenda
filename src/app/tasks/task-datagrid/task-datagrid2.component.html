@@ -18,15 +18,15 @@
   <mat-table #table class="tasks-table mat-elevation-z8" [dataSource]="dataSource"
       matSort matSortActive="Priority" matSortDirection="desc" matSortDisableClear aria-label="Elements">
 
-    <ng-container matColumnDef="actions">
+    <!-- <ng-container matColumnDef="actions">
       <mat-header-cell class="action-cell" *matHeaderCellDef>Action</mat-header-cell>
       <mat-cell class="action-cell" *matCellDef="let row; let i=index;" >
         <mat-icon aria-label="Edit" [routerLink]="['/tasks', row.Id, 'edit']">edit</mat-icon>
-        <!-- <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.DueDate, row.Description)">
+         <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.DueDate, row.Description)">
           <mat-icon aria-label="Delete">delete</mat-icon>
-        </button> -->
+        </button>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
         <!-- Id Column -->
     <ng-container matColumnDef="Id">
@@ -53,6 +53,25 @@
         [ngClass]="row.Priority == 0 ? 'mat-cell-LowPriority' : row.Priority == 1 ? 'mat-cell-MedPriority' : 'mat-cell-highPriority'">
         <mat-icon *ngIf="!(isHandset$ | async)">{{ getPriorityIconName(row.DueDate) }}</mat-icon>
         {{ getPriorityDisplayName(row.Priority, row.DueDate) }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.Id, row.Title, row.Description)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.Description, row.DueDate)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 

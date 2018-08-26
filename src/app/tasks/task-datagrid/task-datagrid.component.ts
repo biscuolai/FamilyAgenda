@@ -7,8 +7,6 @@ import { Task } from '../../shared/models/task';
 import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DeleteDialogComponent } from './../../shared/delete-dialog/delete-dialog.component';
-
 @Component({
   selector: 'task-datagrid',
   templateUrl: './task-datagrid.component.html',
@@ -86,16 +84,16 @@ export class TaskDatagridComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  deleteItem(i: number, id: number, title: string, dueDate: string, description: string) {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id: id, title: title, dueDate: dueDate, description: description}
-    });
+  // deleteItem(i: number, id: number, title: string, dueDate: string, description: string) {
+  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+  //     data: {id: id, title: title, dueDate: dueDate, description: description}
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // code for delete record
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result === 1) {
+  //       // code for delete record
+  //     }
+  //   });
+  // }
 
 }

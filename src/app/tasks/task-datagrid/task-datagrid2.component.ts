@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Observable, BehaviorSubject, merge, fromEvent } from 'rxjs';
 import { DataSource} from '@angular/cdk/collections';
-// import { AddDialogComponent} from './dialogs/add/add.dialog.component';
-// import { EditDialogComponent} from './dialogs/edit/edit.dialog.component';
 
 import { Task } from './../../shared/models/task';
 import { TasksService } from './../tasks.service';
+import { DeleteDialogComponent } from './../../shared/dialogs/delete/delete.dialog.component';
+import { EditDialogComponent } from './../../shared/dialogs/edit/edit.dialog.component';
+import { AddDialogComponent } from './../../shared/dialogs/add/add.dialog.component';
 
 @Component({
   selector: 'app-task-datagrid2',
@@ -46,58 +47,58 @@ export class TaskDatagrid2Component implements OnInit {
     this.loadData();
   }
 
-  // addNew(task: Task) {
-  //   const dialogRef = this.dialog.open(AddDialogComponent, {
-  //     data: {task: task }
-  //   });
+  addNew(task: Task) {
+    const dialogRef = this.dialog.open(AddDialogComponent, {
+      data: { task: task }
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 1) {
-  //       // After dialog is closed we're doing frontend updates
-  //       // For add we're just pushing a new row inside TasksService
-  //       this.exampleDatabase.dataChange.value.push(this.tasksService.getDialogData());
-  //       this.refreshTable();
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside TasksService
+        this.exampleDatabase.dataChange.value.push(this.tasksService.getDialogData());
+        this.refreshTable();
+      }
+    });
+  }
 
-  // startEdit(i: number, id: number, title: string, state: string, url: string, created_at: string, updated_at: string) {
-  //   this.id = id;
-  //   // index row is used just for debugging proposes and can be removed
-  //   this.index = i;
-  //   console.log(this.index);
-  //   const dialogRef = this.dialog.open(EditDialogComponent, {
-  //     data: {id: id, title: title, state: state, url: url, created_at: created_at, updated_at: updated_at}
-  //   });
+  startEdit(i: number, id: number, title: string, description: string) {
+    this.id = id;
+    // index row is used just for debugging proposes and can be removed
+    this.index = i;
+    console.log(this.index);
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: {id: id, title: title, description: description }
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 1) {
-  //       // When using an edit things are little different, firstly we find record inside TasksService by id
-  //       const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-  //       // Then you update that record using data from dialogData (values you enetered)
-  //       this.exampleDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
-  //       // And lastly refresh table
-  //       this.refreshTable();
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // When using an edit things are little different, firstly we find record inside TasksService by id
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        // Then you update that record using data from dialogData (values you enetered)
+        this.exampleDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
+        // And lastly refresh table
+        this.refreshTable();
+      }
+    });
+  }
 
-  // deleteItem(i: number, id: number, title: string, state: string, url: string) {
-  //   this.index = i;
-  //   this.id = id;
-  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //     data: {id: id, title: title, state: state, url: url}
-  //   });
+  deleteItem(i: number, id: number, title: string, description: string, dueDate: Date) {
+    this.index = i;
+    this.id = id;
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: {id: id, title: title, description: description, dueDate: dueDate}
+    });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 1) {
-  //       const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-  //       // for delete we use splice in order to remove single object from TasksService
-  //       this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-  //       this.refreshTable();
-  //     }
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        // for delete we use splice in order to remove single object from TasksService
+        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.refreshTable();
+      }
+    });
+  }
 
   // If you don't need a filter or a pagination this can be simplified, you just use code from else block
   private refreshTable() {
