@@ -23,53 +23,63 @@ import { TaskFormComponent } from './task-form/task-form.component';
 import { FormDeactivateGuard } from '../guards/form-deactivate.guard';
 import { TaskDetailsResolverGuard } from '../guards/task-details.resolver';
 import { SharedModule } from './../shared/shared.module';
+import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
+import { AddDialogComponent } from './dialogs/add/add.dialog.component';
+import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 
 @NgModule({
-    declarations: [
-        TasksComponent,
-        TaskDetailComponent,
-        TaskNotFoundComponent,
-        TaskFormComponent,
-    ],
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
+  declarations: [
+    TasksComponent,
+    TaskDetailComponent,
+    TaskNotFoundComponent,
+    TaskFormComponent,
+    DeleteDialogComponent,
+    EditDialogComponent,
+    AddDialogComponent
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-        TasksRoutingModule,
-        SharedModule,
+    TasksRoutingModule,
+    SharedModule,
 
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatProgressSpinnerModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatRippleModule,
-        MatDatepickerModule,        // <----- import(must)
-        MatNativeDateModule,         // <----- import(optional)
-        MatSelectModule,
-        MatGridListModule,
-        MatCardModule,
-        MatMenuModule,
-        MatRadioModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatStepperModule,
-        MatDialogModule
-    ],
-    exports: [],
-    providers: [
-        TasksService,
-        FormDeactivateGuard,
-        TaskDetailsResolverGuard
-    ]
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,         // <----- import(optional)
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatRadioModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatStepperModule,
+    MatDialogModule
+  ],
+  exports: [
+    DeleteDialogComponent,
+    EditDialogComponent,
+    AddDialogComponent
+  ],
+  providers: [
+    TasksService,
+    FormDeactivateGuard,
+    TaskDetailsResolverGuard
+  ]
 })
 export class TasksModule { }

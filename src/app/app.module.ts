@@ -26,9 +26,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AuthModule } from './auth/auth.module';
 import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.component';
-import { AddDialogComponent } from './shared/dialogs/add/add.dialog.component';
-import { EditDialogComponent } from './shared/dialogs/edit/edit.dialog.component';
-import { DeleteDialogComponent } from './shared/dialogs/delete/delete.dialog.component';
+import { AddDialogComponent } from './tasks/dialogs/add/add.dialog.component';
+import { EditDialogComponent } from './tasks/dialogs/edit/edit.dialog.component';
+import { DeleteDialogComponent } from './tasks/dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { DeleteDialogComponent } from './shared/dialogs/delete/delete.dialog.com
     MainNavigationComponent,
     PageNotFoundComponent,
     TaskDatagridComponent,
-    // DeleteDialogComponent,
     // TaskDatagridBackendComponent
     TaskDatagrid2Component,
     DeleteDialogComponent,

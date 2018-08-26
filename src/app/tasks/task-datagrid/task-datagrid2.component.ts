@@ -8,9 +8,9 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Task } from './../../shared/models/task';
 import { TasksService } from './../tasks.service';
-import { DeleteDialogComponent } from './../../shared/dialogs/delete/delete.dialog.component';
-import { EditDialogComponent } from './../../shared/dialogs/edit/edit.dialog.component';
-import { AddDialogComponent } from './../../shared/dialogs/add/add.dialog.component';
+import { DeleteDialogComponent } from './../dialogs/delete/delete.dialog.component';
+import { EditDialogComponent } from './../dialogs/edit/edit.dialog.component';
+import { AddDialogComponent } from './../dialogs/add/add.dialog.component';
 
 @Component({
   selector: 'app-task-datagrid2',
