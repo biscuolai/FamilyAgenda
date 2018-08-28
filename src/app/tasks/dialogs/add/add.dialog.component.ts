@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { TasksService } from '../../tasks.service';
 import { Task } from '../../../shared/models/task';
-import { IFormCanDeactivate } from '../../../guards/iform-candeactivate';
 import { Status } from '../../../shared/models/status';
 import { Priority } from '../../../shared/models/priority';
 import { DropdownService } from '../../../shared/services/dropdown.service';
@@ -22,16 +21,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import * as _moment from 'moment';
 const moment = _moment;
 
-// import {Component, Inject} from '@angular/core';
-// import {FormControl, Validators} from '@angular/forms';
-
-// import { TasksService } from './../../../tasks/tasks.service';
-// import { Task } from '../../../shared/models/task';
-
 @Component({
   selector: 'app-add-dialog',
-  templateUrl: '../../dialogs/add/add.dialog.html',
-  styleUrls: ['../../dialogs/add/add.dialog.css'],
+  templateUrl: '../../dialogs/add/add.dialog.component.html',
+  styleUrls: ['../../dialogs/add/add.dialog.component.css'],
   providers: [
     // The locale would typically be provided on the root module of your application. We do it at
     // the component level here, due to limitations of our example generation script.
@@ -42,7 +35,7 @@ const moment = _moment;
     // here, due to limitations of our example generation script.
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-  ],
+  ]
 })
 
 export class AddDialogComponent implements OnInit {
@@ -65,7 +58,6 @@ export class AddDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private tasksService: TasksService,
     private adapter: DateAdapter<any>,
     private dropdownService: DropdownService
@@ -78,7 +70,6 @@ export class AddDialogComponent implements OnInit {
       DueDate: ['', Validators.required],
       Status: ['', Validators.required],
       Priority: ['', Validators.required],
-      CreatedDate: ['', null],
       AssignedTo: ['', null]
     });
 
@@ -126,14 +117,8 @@ export class AddDialogComponent implements OnInit {
     const dueDateMonth = today.getMonth();
     const dueDateDay = today.getDate();
 
-    today.setMonth(today.getMonth() - 1);
-    const todayYear = today.getFullYear();
-    const todayMonth = today.getMonth();
-    const todayDay = today.getDate();
-
     this.form.patchValue({
       DueDate: moment([dueDateYear, dueDateMonth, dueDateDay]),
-      CreatedDate: moment([todayYear, todayMonth, todayDay]),
       Title: '',
       Description: '',
       Status: '0',
@@ -145,7 +130,7 @@ export class AddDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public confirmAdd(): void {
+  public onSaveClick(): void {
     console.log('form', this.form);
 
     if (this.form.valid) {

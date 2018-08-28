@@ -78,8 +78,10 @@ export class TaskDatagrid2Component implements OnInit {
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
+
+    const task = new Task(id, title, description, new Date(), null, 0, new Date(), null, 0);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { id: id, title: title, description: description }
+      data: { task: task }
     });
 
     dialogRef.afterClosed().subscribe(result => {

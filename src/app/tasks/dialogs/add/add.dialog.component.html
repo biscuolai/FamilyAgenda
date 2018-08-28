@@ -44,7 +44,7 @@
     </div>
 
     <div class="form">
-      <button mat-raised-button [disabled]="!form.valid" fxFlex="50" color="primary" (click)="confirmAdd()" [mat-dialog-close]="1" color="primary">Save</button>
+      <button mat-raised-button [disabled]="!form.valid" fxFlex="50" color="primary" (click)="onSaveClick()" [mat-dialog-close]="1" color="primary">Save</button>
       <button mat-raised-button (click)="onNoClick()" fxFlex="50" color="accent" fxFlexOffset="5px" tabindex="-1">Cancel</button>
     </div>
   </form>
