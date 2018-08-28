@@ -57,17 +57,18 @@ export class TasksService {
   // DEMO ONLY, you can find working methods below
   addTask (task: Task): void {
     this.dialogData = task;
+    console.log('dialogData', this.dialogData);
   }
 
   updateTask (task: Task): void {
     this.dialogData = task;
+    console.log('dialogData', this.dialogData);
   }
 
   deleteTask (id: number): void {
     console.log(id);
   }
 }
-
 
 
 /* REAL LIFE CRUD Methods I've used in my projects. ToasterService uses Material Toasts for displaying messages:
