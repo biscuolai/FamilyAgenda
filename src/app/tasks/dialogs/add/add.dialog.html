@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 mat-dialog-title>Create a new task</h3>
+  <!-- <h3 mat-dialog-title>Create a new task</h3> -->
   <form [formGroup]="form">
     <div class="form">
       <mat-form-field>
@@ -43,9 +43,9 @@
       </mat-form-field>
     </div>
 
-    <div mat-dialog-actions>
-      <button mat-raised-button (click)="confirmAdd()" [mat-dialog-close]="1" color="primary">Save</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    <div class="form">
+      <button mat-raised-button [disabled]="!form.valid" fxFlex="50" color="primary" (click)="confirmAdd()" [mat-dialog-close]="1" color="primary">Save</button>
+      <button mat-raised-button (click)="onNoClick()" fxFlex="50" color="accent" fxFlexOffset="5px" tabindex="-1">Cancel</button>
     </div>
   </form>
 </div>

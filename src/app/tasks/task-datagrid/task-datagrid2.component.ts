@@ -3,7 +3,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Observable, BehaviorSubject, merge, fromEvent } from 'rxjs';
-import { DataSource} from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/collections';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Task } from './../../shared/models/task';
@@ -27,31 +27,35 @@ export class TaskDatagrid2Component implements OnInit {
     'Priority'
   ];
 
-  exampleDatabase: TasksService | null;
+  taskDatabase: TasksService | null;
   dataSource: ExampleDataSource | null;
   index: number;
   id: number;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches)
-  );
+    .pipe(
+      map(result => result.matches)
+    );
 
   constructor(public httpClient: HttpClient,
-              public dialog: MatDialog,
-              private breakpointObserver: BreakpointObserver,
-              public tasksService: TasksService) {}
+    public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
+    public tasksService: TasksService) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {
+    // refresh / reload data from database
     this.loadData();
   }
 
   refresh() {
+    // refresh / reload data from database
     this.loadData();
+    // clean-up filter field
+    this.filter.nativeElement.value = '';
   }
 
   addNew(task: Task) {
@@ -63,7 +67,7 @@ export class TaskDatagrid2Component implements OnInit {
       if (result === 1) {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside TasksService
-        this.exampleDatabase.dataChange.value.push(this.tasksService.getDialogData());
+        this.taskDatabase.dataChange.value.push(this.tasksService.getDialogData());
         this.refreshTable();
       }
     });
@@ -75,15 +79,15 @@ export class TaskDatagrid2Component implements OnInit {
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: {id: id, title: title, description: description }
+      data: { id: id, title: title, description: description }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside TasksService by id
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.Id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
-        this.exampleDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
+        this.taskDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
       }
@@ -94,14 +98,14 @@ export class TaskDatagrid2Component implements OnInit {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: {id: id, title: title, description: description, dueDate: dueDate}
+      data: { id: id, title: title, description: description, dueDate: dueDate }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.Id === this.id);
         // for delete we use splice in order to remove single object from TasksService
-        this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
+        this.taskDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
       }
     });
@@ -125,8 +129,8 @@ export class TaskDatagrid2Component implements OnInit {
   }
 
   public loadData() {
-    this.exampleDatabase = new TasksService(this.httpClient);
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.paginator, this.sort);
+    this.taskDatabase = new TasksService(this.httpClient);
+    this.dataSource = new ExampleDataSource(this.taskDatabase, this.paginator, this.sort);
     fromEvent(this.filter.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
@@ -164,10 +168,7 @@ export class TaskDatagrid2Component implements OnInit {
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     return Math.round((date2.getTime() - date1.getTime()) / (oneDay));
   }
-
-
 }
-
 
 export class ExampleDataSource extends DataSource<Task> {
   _filterChange = new BehaviorSubject('');
@@ -184,8 +185,8 @@ export class ExampleDataSource extends DataSource<Task> {
   renderedData: Task[] = [];
 
   constructor(public _exampleDatabase: TasksService,
-              public _paginator: MatPaginator,
-              public _sort: MatSort) {
+    public _paginator: MatPaginator,
+    public _sort: MatSort) {
     super();
     // Reset to the first page when the user changes the filter.
     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
@@ -249,6 +250,5 @@ export class ExampleDataSource extends DataSource<Task> {
       return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
     });
   }
-
 
 }
