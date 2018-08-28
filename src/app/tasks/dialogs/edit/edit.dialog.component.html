@@ -1,6 +1,6 @@
 <div class="container">
     <h3 mat-dialog-title>Editing task # {{ data?.Id }} </h3>
-    <form [formGroup]="form">
+    <form [formGroup]="editForm">
       <div class="form">
         <mat-form-field>
           <input matInput formControlName="Title" placeholder="Please enter the title">
@@ -44,7 +44,7 @@
       </div>
 
       <div class="form">
-        <button mat-raised-button [disabled]="!form.valid" fxFlex="50" color="primary" (click)="onSaveClick()" [mat-dialog-close]="1" color="primary">Save</button>
+        <button mat-raised-button [disabled]="!editForm.valid" fxFlex="50" color="primary" (click)="onSaveClick()" [mat-dialog-close]="1" color="primary">Save</button>
         <button mat-raised-button (click)="onNoClick()" fxFlex="50" color="accent" fxFlexOffset="5px" tabindex="-1">Cancel</button>
       </div>
     </form>

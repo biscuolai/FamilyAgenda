@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { TasksService } from '../../tasks.service';
@@ -40,7 +39,7 @@ const moment = _moment;
 export class EditDialogComponent implements OnInit {
 
   // Reactive form variable
-  form: FormGroup;
+  editForm: FormGroup;
 
   // modules
   statusList: Observable<Status[]>;
@@ -62,9 +61,9 @@ export class EditDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      Id: ['', null],
-      Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+    this.editForm = this.formBuilder.group({
+      Id: ['sdf', null],
+      Title: ['sdfsdf', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       Description: ['', null],
       DueDate: ['', Validators.required],
       Status: ['', Validators.required],
@@ -84,17 +83,17 @@ export class EditDialogComponent implements OnInit {
 
     // this.form.setValue(this.data);
     //    if task was found and returned data
-    if (this.data != null) {
-      this.form.get('Id').patchValue(this.data.Id);
-      this.form.get('Title').patchValue(this.data.Title);
-      this.form.get('Description').patchValue(this.data.Description);
-      this.form.get('DueDate').patchValue(this.data.DueDate);
-      this.form.get('AssignedTo').patchValue(this.data.AssignedTo);
-      this.form.get('Status').patchValue(this.data.Status);
-      this.form.get('Priority').patchValue(this.data.Priority);
-    }
+      this.editForm.patchValue({
+        Id: this.data.Id,
+        Title: this.data.Title,
+        Description: this.data.Description,
+        DueDate: this.data.DueDate,
+        AssignedTo: this.data.AssignedTo,
+        Status: this.data.Status,
+        Priority: this.data.Priority
+      });
 
-    console.log('this.form', this.form);
+    console.log('this.form', this.editForm);
 
   }
 
@@ -118,7 +117,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   checkValidTouched(fieldName) {
-    return !this.form.get(fieldName).valid && (this.form.get(fieldName).touched || this.form.get(fieldName).dirty);
+    return !this.editForm.get(fieldName).valid && (this.editForm.get(fieldName).touched || this.editForm.get(fieldName).dirty);
   }
 
   onNoClick(): void {
@@ -126,21 +125,21 @@ export class EditDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
-    console.log('form', this.form);
+    console.log('form', this.editForm);
 
-    if (this.form.valid) {
+    if (this.editForm.valid) {
 
-      this.data.Title = this.form.get('Title').value;
-      this.data.Description = this.form.get('Description').value;
-      this.data.DueDate = this.form.get('DueDate').value._d;
-      this.data.Priority = this.form.get('Priority').value;
-      this.data.Status = this.form.get('Status').value;
+      this.data.Title = this.editForm.get('Title').value;
+      this.data.Description = this.editForm.get('Description').value;
+      this.data.DueDate = this.editForm.get('DueDate').value._d;
+      this.data.Priority = this.editForm.get('Priority').value;
+      this.data.Status = this.editForm.get('Status').value;
       this.data.LastModifiedDate = new Date();
 
       console.log('form is valid', this.data);
       this.tasksService.updateTask(this.data);
     } else {
-      this.checkFormValidators(this.form);
+      this.checkFormValidators(this.editForm);
     }
   }
 }
