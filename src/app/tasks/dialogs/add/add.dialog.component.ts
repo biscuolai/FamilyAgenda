@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../../shared/models/task';
 import { Status } from '../../../shared/models/status';
 import { Priority } from '../../../shared/models/priority';

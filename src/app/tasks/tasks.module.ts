@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TasksComponent } from './tasks.component';
-import { TasksService } from './tasks.service';
+import { TasksService } from './services/tasks.service';
 
 import {
   MatExpansionModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
@@ -33,9 +33,9 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     TaskDetailComponent,
     TaskNotFoundComponent,
     TaskFormComponent,
-    DeleteDialogComponent,
-    EditDialogComponent,
-    AddDialogComponent
+    //DeleteDialogComponent,
+    //EditDialogComponent,
+    //AddDialogComponent
   ],
   imports: [
     CommonModule,
@@ -73,9 +73,9 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
   ],
   exports: [
     TaskFormComponent,
-    DeleteDialogComponent,
-    EditDialogComponent,
-    AddDialogComponent
+    //DeleteDialogComponent,
+    //EditDialogComponent,
+    //AddDialogComponent
   ],
   providers: [
     TasksService,

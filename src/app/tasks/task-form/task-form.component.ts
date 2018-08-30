@@ -1,9 +1,10 @@
+import { FormValidators } from './../../shared/utils/FormValidators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../services/tasks.service';
 import { Task } from '../../shared/models/task';
 import { IFormCanDeactivate } from '../../guards/iform-candeactivate';
 import { Status } from '../../shared/models/status';
@@ -145,53 +146,17 @@ export class TaskFormComponent implements OnInit, OnDestroy, IFormCanDeactivate 
     if (this.form.valid) {
       console.log('form is valid');
     } else {
-      this.checkFormValidators(this.form);
-    }
-  }
-
-  checkFormValidators(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(fieldName => {
-      console.log(fieldName);
-      const control = formGroup.get(fieldName);
-      control.markAsDirty();
-      if (control instanceof FormGroup) {
-        this.checkFormValidators(control);
-      }
-    });
-  }
-
-  checkValidTouched(fieldName) {
-    return !this.form.get(fieldName).valid && (this.form.get(fieldName).touched || this.form.get(fieldName).dirty);
-  }
-
-  checkEmailInvalid() {
-    const emailField = this.form.get('email');
-    if (emailField.errors) {
-      return emailField.errors['email'] && emailField.touched;
+      FormValidators.checkFormValidators(this.form);
     }
   }
 
   // implements from iform-candeactivate
   canExitPage() {
-    if (this.isFormDirty(this.form)) {
-      return confirm('Are you sure you want to exit the page?');
-    }
-    return true;
+    return FormValidators.canExitPage(this.form);
   }
 
-  private isFormDirty(formGroup: FormGroup) {
-    let result = false;
-    Object.keys(formGroup.controls).forEach(name => {
-      const control = formGroup.get(name);
-      if (control.dirty) {
-        result = true;
-      }
-      if (control instanceof FormGroup && result === false) {
-        this.isFormDirty(control);
-      }
-    });
-
-    return result;
+  checkValidTouched(fieldName) {
+    FormValidators.checkValidTouched(this.form, fieldName);
   }
 
   private resetForm() {

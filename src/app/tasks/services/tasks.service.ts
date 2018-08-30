@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 
-import { Task } from '../shared/models/task';
+import { Task } from '../../shared/models/task';
 
 @Injectable({
   providedIn: 'root'

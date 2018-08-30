@@ -1,5 +1,5 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { TasksService } from '../tasks.service';
+import { TasksService } from '../services/tasks.service';
 import { TasksDataSource } from '../tasks.datasource';
 import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';

@@ -7,7 +7,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { Task } from './../../shared/models/task';
-import { TasksService } from './../tasks.service';
+import { TasksService } from '../services/tasks.service';
 import { DeleteDialogComponent } from './../dialogs/delete/delete.dialog.component';
 import { EditDialogComponent } from './../dialogs/edit/edit.dialog.component';
 import { AddDialogComponent } from './../dialogs/add/add.dialog.component';
@@ -73,15 +73,14 @@ export class TaskDatagrid2Component implements OnInit {
     });
   }
 
-  startEdit(i: number, id: number, title: string, description: string) {
+  startEdit(i: number, id: number) {
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
 
-    const task = new Task(id, title, description, new Date(), null, 0, new Date(), null, 0);
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: { task: task }
+      data: id
     });
 
     dialogRef.afterClosed().subscribe(result => {

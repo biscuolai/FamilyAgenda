@@ -1,6 +1,7 @@
 <div class="container">
-    <h3 mat-dialog-title>Editing task # {{ data?.Id }} </h3>
-    <form [formGroup]="editForm">
+  <!-- <app-form-debug [form]="form"></app-form-debug> -->
+  <!-- <h3 mat-dialog-title>Editing task # {{ data }} </h3> -->
+    <form [formGroup]="form">
       <div class="form">
         <mat-form-field>
           <input matInput formControlName="Title" placeholder="Please enter the title">
@@ -22,7 +23,7 @@
       </div>
       <div class="form">
         <mat-form-field>
-          <mat-select formControlName="Status" (ngModelChange)="onStatusChange($event)" placeholder="What is the status?">
+          <mat-select formControlName="Status" [(value)]="selectedStatusValue" (ngModelChange)="onStatusChange($event)" placeholder="What is the status?">
             <mat-option disabled>Please choose a status</mat-option>
             <mat-option *ngFor="let status of statusList | async" [value]="status.id">
               {{ status.name }}
@@ -33,7 +34,7 @@
       </div>
       <div class="form">
         <mat-form-field>
-          <mat-select formControlName="Priority" (ngModelChange)="onPriorityChange($event)" placeholder="What is the priority?">
+          <mat-select formControlName="Priority" [(value)]="selectedPriorityValue" (ngModelChange)="onPriorityChange($event)" placeholder="What is the priority?">
             <mat-option disabled>Please choose the priority</mat-option>
             <mat-option *ngFor="let priority of priorityList | async" [value]="priority.id">
               {{priority.name}}
@@ -44,7 +45,7 @@
       </div>
 
       <div class="form">
-        <button mat-raised-button [disabled]="!editForm.valid" fxFlex="50" color="primary" (click)="onSaveClick()" [mat-dialog-close]="1" color="primary">Save</button>
+        <button mat-raised-button [disabled]="!form.valid" fxFlex="50" color="primary" (click)="onSaveClick()" [mat-dialog-close]="1" color="primary">Save</button>
         <button mat-raised-button (click)="onNoClick()" fxFlex="50" color="accent" fxFlexOffset="5px" tabindex="-1">Cancel</button>
       </div>
     </form>

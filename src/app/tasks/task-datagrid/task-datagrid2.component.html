@@ -5,7 +5,7 @@
       <input matInput #filter placeholder="Filter tasks">
     </mat-form-field>
     <span class="spacer"></span>
-    Reload data:
+    Refresh:
     <button mat-icon-button (click)="refresh()">
       <mat-icon>refresh</mat-icon>
     </button>
@@ -64,7 +64,7 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;" class="action-cell">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row.Id, row.Title, row.Description)">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.Id)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 

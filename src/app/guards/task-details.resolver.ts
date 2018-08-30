@@ -3,7 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@a
 import { Observable } from 'rxjs';
 
 import { Task } from '../shared/models/task';
-import { TasksService } from '../tasks/tasks.service';
+import { TasksService } from '../tasks/services/tasks.service';
 
 @Injectable()
 export class TaskDetailsResolverGuard implements Resolve<Task> {

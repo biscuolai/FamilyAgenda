@@ -1,4 +1,4 @@
-import { FormDebugComponent } from './shared/form-debug/form-debug.component';
+// import { FormDebugComponent } from './shared/form-debug/form-debug.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TaskDatagridComponent } from './tasks/task-datagrid/task-datagrid.component';
+import { SharedModule } from './shared/shared.module';
 // import { TaskDatagridBackendComponent } from './tasks/task-datagrid-backend/task-datagrid-backend.component';
 
 import {
@@ -30,7 +31,7 @@ import { TaskDatagrid2Component } from './tasks/task-datagrid/task-datagrid2.com
 import { AddDialogComponent } from './tasks/dialogs/add/add.dialog.component';
 import { EditDialogComponent } from './tasks/dialogs/edit/edit.dialog.component';
 import { DeleteDialogComponent } from './tasks/dialogs/delete/delete.dialog.component';
-import { TaskFormComponent } from './tasks/task-form/task-form.component';
+// import { TaskFormComponent } from './tasks/task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,8 @@ import { TaskFormComponent } from './tasks/task-form/task-form.component';
     DeleteDialogComponent,
     EditDialogComponent,
     AddDialogComponent,
-    TaskFormComponent,
-    FormDebugComponent
+    // TaskFormComponent,
+    // FormDebugComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +57,7 @@ import { TaskFormComponent } from './tasks/task-form/task-form.component';
 
     AppRoutingModule,
     AuthModule,
+    SharedModule,
 
     MatToolbarModule,
     MatButtonModule,

@@ -1,13 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { TasksService } from '../../tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../../shared/models/task';
-import { Status } from '../../../shared/models/status';
-import { Priority } from '../../../shared/models/priority';
 import { DropdownService } from '../../../shared/services/dropdown.service';
+import { Priority } from './../../../shared/models/priority';
+import { Status } from './../../../shared/models/status';
 
 // Datepicker libraries
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -18,6 +18,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 import * as _moment from 'moment';
+import { FormValidators } from '../../../shared/utils/FormValidators';
 const moment = _moment;
 
 @Component({
@@ -36,24 +37,26 @@ const moment = _moment;
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ]
 })
-export class EditDialogComponent implements OnInit {
+export class EditDialogComponent implements OnInit, OnDestroy {
 
   // Reactive form variable
-  editForm: FormGroup;
+  form: FormGroup;
 
   // modules
-  statusList: Observable<Status[]>;
-  priorityList: Observable<Priority[]>;
+  statusList: Promise<Status[]>;
+  priorityList: Promise<Priority[]>;
 
   // Select / selected items
-  selectedStatus: Status;
-  selectedPriority: Priority;
   selectedStatusValue: number;
   selectedPriorityValue: number;
 
+  taskSubscription: Subscription;
+
+  task: Task;
+
   constructor(
     public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Task,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private adapter: DateAdapter<any>,
@@ -61,9 +64,10 @@ export class EditDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.editForm = this.formBuilder.group({
-      Id: ['sdf', null],
-      Title: ['sdfsdf', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+
+    this.form = this.formBuilder.group({
+      Id: ['', null],
+      Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       Description: ['', null],
       DueDate: ['', Validators.required],
       Status: ['', Validators.required],
@@ -71,30 +75,31 @@ export class EditDialogComponent implements OnInit {
       AssignedTo: ['', null]
     });
 
-    // get the Status list - Observable
-    this.statusList = this.dropdownService.getStatus();
-    // get the Priority list - Observable
-    this.priorityList = this.dropdownService.getPriority();
+    // get the Priority list - Promise
+    this.priorityList = this.dropdownService.getPriorityAsync();
+    // get the Priority list - Promise
+    this.statusList = this.dropdownService.getStatusAsync();
 
     // set location of DatePicker for English-Australia dd/MM/yyyy
     this.adapter.setLocale('en-AU');
 
-    console.log('this.data - edit', this.data);
+    this.taskSubscription = this.tasksService.getTask(this.data)
+    .subscribe( (result: Task) => {
 
-    // this.form.setValue(this.data);
-    //    if task was found and returned data
-      this.editForm.patchValue({
-        Id: this.data.Id,
-        Title: this.data.Title,
-        Description: this.data.Description,
-        DueDate: this.data.DueDate,
-        AssignedTo: this.data.AssignedTo,
-        Status: this.data.Status,
-        Priority: this.data.Priority
-      });
+        this.form.patchValue({
+          Id: result.Id,
+          Title: result.Title,
+          Description: result.Description,
+          DueDate: result.DueDate,
+          AssignedTo: result.AssignedTo,
+          Status: result.Status,
+          Priority: result.Priority
+        });
 
-    console.log('this.form', this.editForm);
-
+        this.selectedPriorityValue = result.Priority;
+        this.selectedStatusValue = result.Status;
+      }
+    );
   }
 
   onStatusChange(newStatusValue) {
@@ -105,19 +110,8 @@ export class EditDialogComponent implements OnInit {
     this.selectedPriorityValue = newPriorityValue;
   }
 
-  checkFormValidators(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(fieldName => {
-      console.log(fieldName);
-      const control = formGroup.get(fieldName);
-      control.markAsDirty();
-      if (control instanceof FormGroup) {
-        this.checkFormValidators(control);
-      }
-    });
-  }
-
   checkValidTouched(fieldName) {
-    return !this.editForm.get(fieldName).valid && (this.editForm.get(fieldName).touched || this.editForm.get(fieldName).dirty);
+    FormValidators.checkValidTouched(this.form, fieldName);
   }
 
   onNoClick(): void {
@@ -125,21 +119,22 @@ export class EditDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
-    console.log('form', this.editForm);
+    console.log('form', this.form);
 
-    if (this.editForm.valid) {
+    if (this.form.valid) {
 
-      this.data.Title = this.editForm.get('Title').value;
-      this.data.Description = this.editForm.get('Description').value;
-      this.data.DueDate = this.editForm.get('DueDate').value._d;
-      this.data.Priority = this.editForm.get('Priority').value;
-      this.data.Status = this.editForm.get('Status').value;
-      this.data.LastModifiedDate = new Date();
+      this.task = this.form.value;
 
-      console.log('form is valid', this.data);
-      this.tasksService.updateTask(this.data);
+      console.log('form is valid', this.task);
+      this.tasksService.updateTask(this.task);
     } else {
-      this.checkFormValidators(this.editForm);
+      FormValidators.checkFormValidators(this.form);
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.taskSubscription != null) {
+      this.taskSubscription.unsubscribe();
     }
   }
 }

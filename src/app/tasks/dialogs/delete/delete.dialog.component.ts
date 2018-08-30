@@ -1,7 +1,7 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Component, Inject} from '@angular/core';
 
-import { TasksService } from './../../../tasks/tasks.service';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-delete-dialog',
