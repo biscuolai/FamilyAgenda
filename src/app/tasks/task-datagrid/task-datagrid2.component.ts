@@ -11,6 +11,9 @@ import { TasksService } from '../services/tasks.service';
 import { DeleteDialogComponent } from './../dialogs/delete/delete.dialog.component';
 import { EditDialogComponent } from './../dialogs/edit/edit.dialog.component';
 import { AddDialogComponent } from './../dialogs/add/add.dialog.component';
+import { Priority } from './../../shared/models/priority';
+import { DropdownService } from './../../shared/services/dropdown.service';
+import { Status } from './../../shared/models/status';
 
 @Component({
   selector: 'app-task-datagrid2',
@@ -23,8 +26,12 @@ export class TaskDatagrid2Component implements OnInit {
     'actions',
     'Id',
     'Title',
+    'Description',
     'DueDate',
-    'Priority'
+    'Status',
+    'Priority',
+    'CreatedDate',
+    'LastModifiedDate'
   ];
 
   taskDatabase: TasksService | null;
@@ -37,17 +44,37 @@ export class TaskDatagrid2Component implements OnInit {
       map(result => result.matches)
     );
 
+  // modules
+  statusList: Status[];
+  priorityList: Priority[];
+
   constructor(public httpClient: HttpClient,
     public dialog: MatDialog,
     private breakpointObserver: BreakpointObserver,
-    public tasksService: TasksService) { }
+    public tasksService: TasksService,
+    private dropdownService: DropdownService
+  ) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {
-    // refresh / reload data from database
+    // get the Status list - Promise
+    this.dropdownService.getStatusAsync()
+      .then<Status[]>((values: Status[]) => {
+        this.statusList = values;
+        return values;
+      });
+
+    // get the Priority list - Promise
+    this.dropdownService.getPriorityAsync()
+      .then<Priority[]>((values: Priority[]) => {
+        this.priorityList = values;
+        return values;
+      });
+
+      // refresh / reload data from database
     this.loadData();
   }
 
@@ -153,8 +180,13 @@ export class TaskDatagrid2Component implements OnInit {
     const dueDateObj = new Date(dueDate);
     const daysPassed = this.getDateDiff(today, dueDateObj);
 
-    const result = priority === 0 ? 'Low' : priority === 1 ? 'Med' : 'High';
-    return daysPassed > 0 ? result + ' ' + daysPassed : result + ' ' + daysPassed;
+    const priorityName = this.priorityList.find(x => x.id === priority).name.substring(0, 1);
+    return priorityName + ' ' + daysPassed;
+  }
+
+  getStatusDisplayName(status: number) {
+    const statusName = this.statusList.find(x => x.id === status).name;
+    return statusName;
   }
 
   getPriorityIconName(dueDate: string) {
@@ -235,14 +267,18 @@ export class ExampleDataSource extends DataSource<Task> {
     }
 
     return data.sort((a, b) => {
-      let propertyA: number | string = '';
-      let propertyB: number | string = '';
+      let propertyA: number | string | Date = '';
+      let propertyB: number | string | Date = '';
 
       switch (this._sort.active) {
         case 'Id': [propertyA, propertyB] = [a.Id, b.Id]; break;
         case 'Title': [propertyA, propertyB] = [a.Title, b.Title]; break;
         case 'Description': [propertyA, propertyB] = [a.Description, b.Description]; break;
+        case 'DueDate': [propertyA, propertyB] = [a.DueDate, b.DueDate]; break;
+        case 'Status': [propertyA, propertyB] = [a.Status, b.Status]; break;
         case 'Priority': [propertyA, propertyB] = [a.Priority, b.Priority]; break;
+        case 'CreatedDate': [propertyA, propertyB] = [a.CreatedDate, b.CreatedDate]; break;
+        case 'LastModifiedDate': [propertyA, propertyB] = [a.LastModifiedDate, b.LastModifiedDate]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

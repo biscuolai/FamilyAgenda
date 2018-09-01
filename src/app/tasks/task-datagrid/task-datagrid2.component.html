@@ -18,26 +18,22 @@
   <mat-table #table class="tasks-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="Priority" matSortDirection="desc"
     matSortDisableClear aria-label="Elements">
 
-    <!-- <ng-container matColumnDef="actions">
-      <mat-header-cell class="action-cell" *matHeaderCellDef>Action</mat-header-cell>
-      <mat-cell class="action-cell" *matCellDef="let row; let i=index;" >
-        <mat-icon aria-label="Edit" [routerLink]="['/tasks', row.Id, 'edit']">edit</mat-icon>
-         <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.DueDate, row.Description)">
-          <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container> -->
-
     <!-- Id Column -->
     <ng-container matColumnDef="Id">
-      <mat-header-cell class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-      <mat-cell class="id-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
+      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
     </ng-container>
 
     <!-- Title Column -->
     <ng-container matColumnDef="Title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
       <mat-cell class="title-cell" *matCellDef="let row">{{row.Title}}</mat-cell>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="Description">
+      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matCellDef="let row">{{row.Description}}</mat-cell>
     </ng-container>
 
     <!-- DueDate Column -->
@@ -53,6 +49,26 @@
         <mat-icon *ngIf="!(isHandset$ | async)">{{ getPriorityIconName(row.DueDate) }}</mat-icon>
         {{ getPriorityDisplayName(row.Priority, row.DueDate) }}
       </mat-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="Status">
+      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="status-cell" *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matCellDef="let row" [ngClass]="{'hidden': (isHandset$ | async)}" class="status-cell">
+        {{ getStatusDisplayName(row.Status) }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- CreatedDate Column -->
+    <ng-container matColumnDef="CreatedDate">
+      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.CreatedDate | date: 'dd MMM yyyy'}}</mat-cell>
+    </ng-container>
+
+    <!-- LastModifiedDate Column -->
+    <ng-container matColumnDef="LastModifiedDate">
+      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matHeaderCellDef mat-sort-header>Last Modified Date</mat-header-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.LastModifiedDate | date: 'dd MMM yyyy'}}</mat-cell>
     </ng-container>
 
     <!-- actions -->

@@ -1,11 +1,15 @@
 .task {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
+  max-width: 1500px;
+  margin: 50 auto;
 }
 
 mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
   padding-right: 0;
+}
+
+.cell-left {
+  text-align: left;
 }
 
 .mat-cell-highPriority{
@@ -39,6 +43,10 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
   max-width: 100px;
 }
 
+.status-cell {
+  max-width: 100px;
+}
+
 .task-thumbnail {
   width: 150px;
   margin: 20px auto 0 auto;
@@ -48,6 +56,26 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
 .action-cell {
   max-width: 90px;
   min-width: 90px;
+}
+
+mat-footer-row, mat-header-row, mat-row {
+  align-items: unset;
+}
+
+mat-header-cell {
+  color: unset;
+}
+
+mat-cell, mat-footer-cell, mat-header-cell {
+  min-height: unset;
+}
+
+.hidden {
+  display: none;
+}
+
+.not-hidden {
+  display: inline;
 }
 
 .id-cell {
@@ -62,7 +90,7 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
 
 .duedate-cell {
   max-width: 120px;
-  text-align: center;
+  justify-content:left;
 }
 
 .duedate-cell mat-icon {
@@ -78,8 +106,13 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
 }
 
 .tasks-table {
-  min-height: 360px;
-  margin-top: 10px;
+  min-height: 300px;
+  margin-top: 10;
+}
+
+mat-table, mat-paginator {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .spinner-container mat-spinner {
@@ -101,7 +134,7 @@ mat-cell:last-child, mat-footer-cell:last-child, mat-header-cell:last-child{
   font-size: 20px;
   justify-content: space-between;
   border-bottom: 1px solid transparent;
-  margin-top: 3%;
+  /* margin-top: 3%; */
 }
 
 /* Mat table */
