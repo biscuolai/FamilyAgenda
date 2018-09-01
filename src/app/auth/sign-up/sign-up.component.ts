@@ -15,7 +15,7 @@ export class SignUpComponent implements OnInit {
   subscription: Subscription;
   signUpForm: FormGroup;
   private user: User = new User();
-  hide: boolean = true;
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,27 +26,23 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
-      Username: ['', Validators.required],
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      Email: ['', Validators.email],
+      Email: ['', [Validators.required, Validators.email]],
+      ConfirmEmail: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required]
     });
   }
 
-  signUp(){
+  signUp() {
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
-      this.user.Username = this.signUpForm.get('Username').value;
-      this.user.FirstName = this.signUpForm.get('FirstName').value;
-      this.user.LastName = this.signUpForm.get('LastName').value;
       this.user.Email = this.signUpForm.get('Email').value;
+      this.user.ConfirmEmail = this.signUpForm.get('ConfirmEmail').value;
       this.user.Password = this.signUpForm.get('Password').value;
-      //this.authService.signup(this.user);
+      // this.authService.signup(this.user);
     }
   }
 
-  signIn(){
+  signIn() {
     this.router.navigate(['/signin']);
   }
 

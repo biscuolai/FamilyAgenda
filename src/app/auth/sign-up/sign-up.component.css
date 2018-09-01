@@ -1,31 +1,28 @@
-.signin-box, .signup-box {
+.signup-box {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px; 
+  padding: 20px;
 }
 
 .border-box{
   margin: 50px;
 }
 
-mat-form-field{
-    width: 100%;
-}
-
 .signup-form-field-middle {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 30px; 
-  padding-right: 30px; 
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .signup-form-field-first {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 30px; 
+  padding-left: 30px;
   padding-right: 30px;
-  padding-top: 30px; 
+  padding-top: 30px;
 }
+
