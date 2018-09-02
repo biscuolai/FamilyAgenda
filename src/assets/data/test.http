@@ -1,0 +1,37 @@
+http://localhost:3000/tasks
+
+###
+
+GET http://localhost:3000/tasks/7
+
+###
+
+PUT http://localhost:3000/tasks/7  HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Test new task - updated",
+  "description": "Test - updated",
+  "dueDate": "2018-09-02T19:43:37+0100",
+  "assignedTo": 1,
+  "status": 0,
+  "createdDate": "2018-09-02T19:43:37+0100",
+  "lastModifiedDate": "",
+  "priority": 0
+}
+
+###
+
+POST http://localhost:3000/tasks HTTP/1.1
+content-type: application/json
+
+{
+  "title": "Test new task",
+  "description": "Test",
+  "dueDate": "2018-09-02T19:43:37+0100",
+  "assignedTo": 1,
+  "status": 0,
+  "createdDate": "2018-09-02T19:43:37+0100",
+  "lastModifiedDate": "",
+  "priority": 0
+}

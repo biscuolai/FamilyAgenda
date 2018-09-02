@@ -1,211 +1,81 @@
-[
-  {
-    "Id": 1,
-    "Title": "Task 1",
-    "Description": "Description 1",
-    "DueDate": "2018-08-11T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 1
-  },
-  {
-    "Id": 2,
-    "Title": "Task 2",
-    "Description": "Description 2",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  },
-  {
-    "Id": 3,
-    "Title": "Task 3",
-    "Description": "Description 3",
-    "DueDate": "2018-08-30T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 4,
-    "Title": "Task 4",
-    "Description": "Description 4",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 5,
-    "Title": "Task 5",
-    "Description": "Description 5",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 1
-  },
-  {
-    "Id": 6,
-    "Title": "Task 6",
-    "Description": "Description 6",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 7,
-    "Title": "Task 7",
-    "Description": "Description 7",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 8,
-    "Title": "Task 8",
-    "Description": "Description 8",
-    "DueDate": "2018-08-30T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 1
-  },
-  {
-    "Id": 9,
-    "Title": "Task 9",
-    "Description": "Description 9",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 10,
-    "Title": "Task 10",
-    "Description": "Description 10",
-    "DueDate": "2018-08-30T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 11,
-    "Title": "Task 11",
-    "Description": "Description 11",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 1
-  },
-  {
-    "Id": 12,
-    "Title": "Task 12",
-    "Description": "Description 12",
-    "DueDate": "2018-08-30T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  },
-  {
-    "Id": 13,
-    "Title": "Task 13",
-    "Description": "Description 13",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  },
-  {
-    "Id": 14,
-    "Title": "Task 14",
-    "Description": "Description 14",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 15,
-    "Title": "Task 15",
-    "Description": "Description 15",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  },
-  {
-    "Id": 16,
-    "Title": "Task 16",
-    "Description": "Description 16",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 17,
-    "Title": "Task 17",
-    "Description": "Description 17",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 0
-  },
-  {
-    "Id": 18,
-    "Title": "Task 18",
-    "Description": "Description 18",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  },
-  {
-    "Id": 19,
-    "Title": "Task 19",
-    "Description": "Description 19",
-    "DueDate": "2018-08-01T19:43:37+0100",
-    "AssignedTo": "Ilson 1",
-    "Status": 0,
-    "CreatedDate": "2018-08-01T19:43:37+0100",
-    "LastModifiedDate": "",
-    "Priority": 2
-  }
-]
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Fix front door",
+      "description": "Fix front door and paint",
+      "dueDate": "2018-08-11T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 2,
+      "title": "Fix the back door",
+      "description": "Fix the back door and dead-lock is not working",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 2
+    },
+    {
+      "id": 3,
+      "title": "Tap not working at kitchen",
+      "description": "Please fix the tap at the kitchen - leaking",
+      "dueDate": "2018-08-30T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 0
+    },
+    {
+      "id": 4,
+      "title": "Burn the DVDs",
+      "description": "Please burn the Mickey DVDs",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 0
+    },
+    {
+      "id": 5,
+      "title": "Clean the backyard",
+      "description": "Clean the backyard",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 2,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 6,
+      "title": "Pick up groceries",
+      "description": "Pick up groceries",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 2,
+      "status": 0,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 0
+    },
+    {
+      "title": "Test new task - updated",
+      "description": "Test - updated",
+      "dueDate": "2018-09-02T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 0,
+      "createdDate": "2018-09-02T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 0,
+      "id": 7
+    }
+  ]
+}
