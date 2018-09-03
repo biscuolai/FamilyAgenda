@@ -66,13 +66,13 @@ export class EditDialogComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      Id: ['', null],
-      Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      Description: ['', null],
-      DueDate: ['', Validators.required],
-      Status: ['', Validators.required],
-      Priority: ['', Validators.required],
-      AssignedTo: ['', null]
+      id: ['', null],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: ['', null],
+      dueDate: ['', Validators.required],
+      status: ['', Validators.required],
+      priority: ['', Validators.required],
+      assignedTo: ['', null]
     });
 
     // get the Priority list - Promise
@@ -87,13 +87,13 @@ export class EditDialogComponent implements OnInit, OnDestroy {
     .subscribe( (result: Task) => {
 
         this.form.patchValue({
-          Id: result.id,
-          Title: result.title,
-          Description: result.description,
-          DueDate: result.dueDate,
-          AssignedTo: result.assignedTo,
-          Status: result.status,
-          Priority: result.priority
+          id: result.id,
+          title: result.title,
+          description: result.description,
+          dueDate: result.dueDate,
+          assignedTo: result.assignedTo,
+          status: result.status,
+          priority: result.priority
         });
 
         this.selectedPriorityValue = result.priority;
@@ -126,7 +126,7 @@ export class EditDialogComponent implements OnInit, OnDestroy {
       this.task = this.form.value;
 
       console.log('form is valid', this.task);
-      this.tasksService.updateTask(this.task);
+      this.tasksService.updateItem(this.task);
     } else {
       FormValidators.checkFormValidators(this.form);
     }

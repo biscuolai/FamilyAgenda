@@ -1,3 +1,4 @@
+import { FormValidators } from './../../../shared/utils/FormValidators';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -64,12 +65,12 @@ export class AddDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      Description: ['', null],
-      DueDate: ['', Validators.required],
-      Status: ['', Validators.required],
-      Priority: ['', Validators.required],
-      AssignedTo: ['', null]
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: ['', null],
+      dueDate: ['', Validators.required],
+      status: ['', Validators.required],
+      priority: ['', Validators.required],
+      assignedTo: ['', null]
     });
 
     // get the Status list - Observable
@@ -91,19 +92,8 @@ export class AddDialogComponent implements OnInit {
     this.selectedPriorityValue = newPriorityValue;
   }
 
-  checkFormValidators(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(fieldName => {
-      console.log(fieldName);
-      const control = formGroup.get(fieldName);
-      control.markAsDirty();
-      if (control instanceof FormGroup) {
-        this.checkFormValidators(control);
-      }
-    });
-  }
-
   checkValidTouched(fieldName) {
-    return !this.form.get(fieldName).valid && (this.form.get(fieldName).touched || this.form.get(fieldName).dirty);
+    return FormValidators.checkValidTouched(this.form, fieldName);
   }
 
   private resetForm() {
@@ -117,11 +107,11 @@ export class AddDialogComponent implements OnInit {
     const dueDateDay = today.getDate();
 
     this.form.patchValue({
-      DueDate: moment([dueDateYear, dueDateMonth, dueDateDay]),
-      Title: '',
-      Description: '',
-      Status: '0',
-      Priority: '0'
+      dueDate: moment([dueDateYear, dueDateMonth, dueDateDay]),
+      title: '',
+      description: '',
+      status: 1,
+      priority: 1
     });
   }
 
@@ -134,17 +124,17 @@ export class AddDialogComponent implements OnInit {
 
     if (this.form.valid) {
 
-      this.data.title = this.form.get('Title').value;
-      this.data.description = this.form.get('Description').value;
-      this.data.dueDate = this.form.get('DueDate').value._d;
-      this.data.priority = this.form.get('Priority').value;
-      this.data.status = this.form.get('Status').value;
+      this.data.title = this.form.get('title').value;
+      this.data.description = this.form.get('description').value;
+      this.data.dueDate = this.form.get('dueDate').value._d;
+      this.data.priority = this.form.get('priority').value;
+      this.data.status = this.form.get('status').value;
       this.data.createdDate = new Date();
 
       console.log('form is valid', this.data);
-      this.tasksService.addTask(this.data);
+      this.tasksService.addItem(this.data);
     } else {
-      this.checkFormValidators(this.form);
+      FormValidators.checkFormValidators(this.form);
     }
   }
 }

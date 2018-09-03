@@ -67,15 +67,13 @@
       "priority": 3
     },
     {
-      "title": "Test new task - updated",
-      "description": "Test - updated",
+      "id": 7,
+      "title": "Test new task - updated1",
+      "description": "Test - updated1",
       "dueDate": "2018-09-02T19:43:37+0100",
-      "assignedTo": 1,
       "status": 1,
-      "createdDate": "2018-09-02T19:43:37+0100",
-      "lastModifiedDate": "",
       "priority": 3,
-      "id": 7
+      "assignedTo": 1
     }
   ],
   "priority": [

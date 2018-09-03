@@ -188,9 +188,9 @@ export class TaskDatagrid2Component implements OnInit {
 
   getStatusDisplayName(status: number) {
 
-    console.log('this.statusList', this.statusList);
-    console.log('status', status);
-    console.log('find', this.statusList.find(x => x.id === status));
+    // console.log('this.statusList', this.statusList);
+    // console.log('status', status);
+    // console.log('find', this.statusList.find(x => x.id === status));
 
     const statusName = this.statusList.find(x => x.id === status).name;
     return statusName;
@@ -247,7 +247,7 @@ export class ExampleDataSource extends DataSource<Task> {
     return merge(...displayDataChanges).pipe(map(() => {
       // Filter data
       this.filteredData = this._exampleDatabase.data.slice().filter((task: Task) => {
-        const searchStr = (task.id + task.title + task.description + task.dueDate.toString() + task.createdDate.toString()).toLowerCase();
+        const searchStr = (task.id + task.title + task.description).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
 

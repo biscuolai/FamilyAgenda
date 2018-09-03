@@ -18,6 +18,6 @@ export class DeleteDialogComponent {
   }
 
   confirmDelete(): void {
-    this.tasksService.deleteTask(this.data.id);
+    this.tasksService.deleteItem(this.data.id);
   }
 }

@@ -4,43 +4,43 @@
     <form [formGroup]="form">
       <div class="form">
         <mat-form-field>
-          <input matInput formControlName="Title" placeholder="Please enter the title">
-          <mat-error *ngIf="checkValidTouched('Title')">Title is required</mat-error>
+          <input matInput formControlName="title" placeholder="Please enter the title">
+          <mat-error *ngIf="checkValidTouched('title')">Title is required</mat-error>
         </mat-form-field>
       </div>
       <div class="form">
         <mat-form-field>
-          <textarea matInput formControlName="Description" placeholder="Please enter the description"></textarea>
+          <textarea matInput formControlName="description" placeholder="Please enter the description"></textarea>
         </mat-form-field>
       </div>
       <div class="form">
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" formControlName="DueDate" placeholder="When is it due?">
+          <input matInput [matDatepicker]="picker" formControlName="dueDate" placeholder="When is it due?">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="checkValidTouched('DueDate')">Due Date is required</mat-error>
+          <mat-error *ngIf="checkValidTouched('dueDate')">Due date is required</mat-error>
         </mat-form-field>
       </div>
       <div class="form">
         <mat-form-field>
-          <mat-select formControlName="Status" [(value)]="selectedStatusValue" (ngModelChange)="onStatusChange($event)" placeholder="What is the status?">
+          <mat-select formControlName="status" [(value)]="selectedStatusValue" (ngModelChange)="onStatusChange($event)" placeholder="What is the status?">
             <mat-option disabled>Please choose a status</mat-option>
             <mat-option *ngFor="let status of statusList | async" [value]="status.id">
               {{ status.name }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="checkValidTouched('Status')">Status is required</mat-error>
+          <mat-error *ngIf="checkValidTouched('status')">Status is required</mat-error>
         </mat-form-field>
       </div>
       <div class="form">
         <mat-form-field>
-          <mat-select formControlName="Priority" [(value)]="selectedPriorityValue" (ngModelChange)="onPriorityChange($event)" placeholder="What is the priority?">
+          <mat-select formControlName="priority" [(value)]="selectedPriorityValue" (ngModelChange)="onPriorityChange($event)" placeholder="What is the priority?">
             <mat-option disabled>Please choose the priority</mat-option>
             <mat-option *ngFor="let priority of priorityList | async" [value]="priority.id">
               {{priority.name}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="checkValidTouched('Priority')">Priority is required</mat-error>
+          <mat-error *ngIf="checkValidTouched('priority')">Priority is required</mat-error>
         </mat-form-field>
       </div>
 
