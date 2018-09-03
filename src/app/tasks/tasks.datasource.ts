@@ -79,10 +79,10 @@ export class TasksDataSource extends DataSource<Task> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'Id': return compare(+a.Id, +b.Id, isAsc);
-        case 'Title': return compare(a.Title, b.Title, isAsc);
-        case 'DueDate': return compare(a.DueDate, b.DueDate, isAsc);
-        case 'Priority': return compare(a.Priority, b.Priority, isAsc);
+        case 'Id': return compare(+a.id, +b.id, isAsc);
+        case 'Title': return compare(a.title, b.title, isAsc);
+        case 'DueDate': return compare(a.dueDate, b.dueDate, isAsc);
+        case 'Priority': return compare(a.priority, b.priority, isAsc);
         default: return 0;
       }
     });

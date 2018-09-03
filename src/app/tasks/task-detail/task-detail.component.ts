@@ -51,6 +51,6 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
   }
 
   editTask() {
-    this.router.navigate(['/tasks', this.task.Id, 'edit']);
+    this.router.navigate(['/tasks', this.task.id, 'edit']);
   }
 }

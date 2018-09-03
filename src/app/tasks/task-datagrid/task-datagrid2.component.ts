@@ -24,14 +24,14 @@ export class TaskDatagrid2Component implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
     'actions',
-    'Id',
-    'Title',
-    'Description',
-    'DueDate',
-    'Status',
-    'Priority',
-    'CreatedDate',
-    'LastModifiedDate'
+    'id',
+    'title',
+    'description',
+    'dueDate',
+    'status',
+    'priority',
+    'createdDate',
+    'lastModifiedDate'
   ];
 
   taskDatabase: TasksService | null;
@@ -63,6 +63,7 @@ export class TaskDatagrid2Component implements OnInit {
     // get the Status list - Promise
     this.dropdownService.getStatusAsync()
       .then<Status[]>((values: Status[]) => {
+        console.log('status', values);
         this.statusList = values;
         return values;
       });
@@ -70,6 +71,7 @@ export class TaskDatagrid2Component implements OnInit {
     // get the Priority list - Promise
     this.dropdownService.getPriorityAsync()
       .then<Priority[]>((values: Priority[]) => {
+        console.log('priority', values);
         this.priorityList = values;
         return values;
       });
@@ -113,7 +115,7 @@ export class TaskDatagrid2Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside TasksService by id
-        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
         this.taskDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
         // And lastly refresh table
@@ -131,7 +133,7 @@ export class TaskDatagrid2Component implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.Id === this.id);
+        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.id === this.id);
         // for delete we use splice in order to remove single object from TasksService
         this.taskDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
@@ -185,6 +187,11 @@ export class TaskDatagrid2Component implements OnInit {
   }
 
   getStatusDisplayName(status: number) {
+
+    console.log('this.statusList', this.statusList);
+    console.log('status', status);
+    console.log('find', this.statusList.find(x => x.id === status));
+
     const statusName = this.statusList.find(x => x.id === status).name;
     return statusName;
   }
@@ -240,7 +247,7 @@ export class ExampleDataSource extends DataSource<Task> {
     return merge(...displayDataChanges).pipe(map(() => {
       // Filter data
       this.filteredData = this._exampleDatabase.data.slice().filter((task: Task) => {
-        const searchStr = (task.Id + task.Title + task.Description).toLowerCase();
+        const searchStr = (task.id + task.title + task.description + task.dueDate.toString() + task.createdDate.toString()).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
 
@@ -271,14 +278,14 @@ export class ExampleDataSource extends DataSource<Task> {
       let propertyB: number | string | Date = '';
 
       switch (this._sort.active) {
-        case 'Id': [propertyA, propertyB] = [a.Id, b.Id]; break;
-        case 'Title': [propertyA, propertyB] = [a.Title, b.Title]; break;
-        case 'Description': [propertyA, propertyB] = [a.Description, b.Description]; break;
-        case 'DueDate': [propertyA, propertyB] = [a.DueDate, b.DueDate]; break;
-        case 'Status': [propertyA, propertyB] = [a.Status, b.Status]; break;
-        case 'Priority': [propertyA, propertyB] = [a.Priority, b.Priority]; break;
-        case 'CreatedDate': [propertyA, propertyB] = [a.CreatedDate, b.CreatedDate]; break;
-        case 'LastModifiedDate': [propertyA, propertyB] = [a.LastModifiedDate, b.LastModifiedDate]; break;
+        case 'Id': [propertyA, propertyB] = [a.id, b.id]; break;
+        case 'Title': [propertyA, propertyB] = [a.title, b.title]; break;
+        case 'Description': [propertyA, propertyB] = [a.description, b.description]; break;
+        case 'DueDate': [propertyA, propertyB] = [a.dueDate, b.dueDate]; break;
+        case 'Status': [propertyA, propertyB] = [a.status, b.status]; break;
+        case 'Priority': [propertyA, propertyB] = [a.priority, b.priority]; break;
+        case 'CreatedDate': [propertyA, propertyB] = [a.createdDate, b.createdDate]; break;
+        case 'LastModifiedDate': [propertyA, propertyB] = [a.lastModifiedDate, b.lastModifiedDate]; break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

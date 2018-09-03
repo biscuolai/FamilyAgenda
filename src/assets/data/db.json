@@ -1,0 +1,117 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Fix front door",
+      "description": "Fix front door and paint",
+      "dueDate": "2018-08-11T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 1,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 2,
+      "title": "Fix the back door",
+      "description": "Fix the back door and dead-lock is not working",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 1,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 2
+    },
+    {
+      "id": 3,
+      "title": "Tap not working at kitchen",
+      "description": "Please fix the tap at the kitchen - leaking",
+      "dueDate": "2018-08-30T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 2,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 4,
+      "title": "Burn the DVDs",
+      "description": "Please burn the Mickey DVDs",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 3,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 5,
+      "title": "Clean the backyard",
+      "description": "Clean the backyard",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 2,
+      "status": 1,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 1
+    },
+    {
+      "id": 6,
+      "title": "Pick up groceries",
+      "description": "Pick up groceries",
+      "dueDate": "2018-08-01T19:43:37+0100",
+      "assignedTo": 2,
+      "status": 1,
+      "createdDate": "2018-08-01T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 3
+    },
+    {
+      "title": "Test new task - updated",
+      "description": "Test - updated",
+      "dueDate": "2018-09-02T19:43:37+0100",
+      "assignedTo": 1,
+      "status": 1,
+      "createdDate": "2018-09-02T19:43:37+0100",
+      "lastModifiedDate": "",
+      "priority": 3,
+      "id": 7
+    }
+  ],
+  "priority": [
+    {
+      "id": 1,
+      "name": "Low"
+    },
+    {
+      "id": 2,
+      "name": "Medium"
+    },
+    {
+      "id": 3,
+      "name": "High"
+    }
+  ],
+  "status": [
+    {
+      "id": 1,
+      "name": "New"
+    },
+    {
+      "id": 2,
+      "name": "Reviewing"
+    },
+    {
+      "id": 3,
+      "name": "In Progress"
+    },
+    {
+      "id": 4,
+      "name": "Completed"
+    },
+    {
+      "id": 5,
+      "name": "Cancelled"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 import { Task } from '../../shared/models/task';
 
@@ -11,7 +11,7 @@ import { Task } from '../../shared/models/task';
 })
 export class TasksService {
 
-  private readonly API_URL = 'assets/data/tasks.json';
+  private readonly API_URL = `${environment.API_URL}tasks`;
 
   dataChange: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   // Temporarily stores data from dialogs
@@ -28,7 +28,7 @@ export class TasksService {
 
   getTask(id: number): Observable<Task> {
     return this.getTasks()
-      .pipe(map(tasks => tasks.find(task => task.Id == id)));
+      .pipe(map(tasks => tasks.find(task => task.id == id)));
   }
 
   // deleteTask(id: number) {

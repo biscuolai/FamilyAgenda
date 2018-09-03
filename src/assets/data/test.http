@@ -1,3 +1,7 @@
+json-server --watch D:\Projects\Workspaces\FamilyAgenda\src\assets\data\db.json
+
+###
+
 http://localhost:3000/tasks
 
 ###

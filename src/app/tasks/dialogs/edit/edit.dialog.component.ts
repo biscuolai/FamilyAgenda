@@ -87,17 +87,17 @@ export class EditDialogComponent implements OnInit, OnDestroy {
     .subscribe( (result: Task) => {
 
         this.form.patchValue({
-          Id: result.Id,
-          Title: result.Title,
-          Description: result.Description,
-          DueDate: result.DueDate,
-          AssignedTo: result.AssignedTo,
-          Status: result.Status,
-          Priority: result.Priority
+          Id: result.id,
+          Title: result.title,
+          Description: result.description,
+          DueDate: result.dueDate,
+          AssignedTo: result.assignedTo,
+          Status: result.status,
+          Priority: result.priority
         });
 
-        this.selectedPriorityValue = result.Priority;
-        this.selectedStatusValue = result.Status;
+        this.selectedPriorityValue = result.priority;
+        this.selectedStatusValue = result.status;
       }
     );
   }

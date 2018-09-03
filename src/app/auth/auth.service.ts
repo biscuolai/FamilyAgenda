@@ -12,15 +12,13 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  signin(user: User){
-    if (user.Username == 'ilson@gmail.com' && user.Password == '123') {
+  signin(user: User) {
+    if (user.email == 'ilson@gmail.com' && user.password == '123') {
       this.userAuthenticated = true;
       console.log('login successful', this.showMainNavigation);
       this.router.navigate(['/home']);
       this.showMainNavigation.emit('true');
-    }
-    else{
-
+    } else {
       console.log('login failed', this.showMainNavigation);
 
       this.showMainNavigation.emit('false');

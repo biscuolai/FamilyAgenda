@@ -19,56 +19,56 @@
     matSortDisableClear aria-label="Elements">
 
     <!-- Id Column -->
-    <ng-container matColumnDef="Id">
+    <ng-container matColumnDef="id">
       <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matCellDef="let row">{{row.Id}}</mat-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matCellDef="let row">{{row.id}}</mat-cell>
     </ng-container>
 
     <!-- Title Column -->
-    <ng-container matColumnDef="Title">
+    <ng-container matColumnDef="title">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
-      <mat-cell class="title-cell" *matCellDef="let row">{{row.Title}}</mat-cell>
+      <mat-cell class="title-cell" *matCellDef="let row">{{row.title}}</mat-cell>
     </ng-container>
 
     <!-- Description Column -->
-    <ng-container matColumnDef="Description">
+    <ng-container matColumnDef="description">
       <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matCellDef="let row">{{row.Description}}</mat-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matCellDef="let row">{{row.description}}</mat-cell>
     </ng-container>
 
     <!-- DueDate Column -->
-    <ng-container matColumnDef="DueDate">
+    <ng-container matColumnDef="dueDate">
       <mat-header-cell class="duedate-cell" *matHeaderCellDef mat-sort-header>Due Date</mat-header-cell>
-      <mat-cell class="duedate-cell" *matCellDef="let row">{{row.DueDate | date: 'dd MMM yyyy'}}</mat-cell>
+      <mat-cell class="duedate-cell" *matCellDef="let row">{{row.dueDate | date: 'dd MMM yyyy'}}</mat-cell>
     </ng-container>
 
     <!-- Priority Column -->
-    <ng-container matColumnDef="Priority">
+    <ng-container matColumnDef="priority">
       <mat-header-cell class="priority-cell" *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
-      <mat-cell *matCellDef="let row" [ngClass]="row.Priority == 0 ? 'mat-cell-LowPriority' : row.Priority == 1 ? 'mat-cell-MedPriority' : 'mat-cell-highPriority'">
-        <mat-icon *ngIf="!(isHandset$ | async)">{{ getPriorityIconName(row.DueDate) }}</mat-icon>
-        {{ getPriorityDisplayName(row.Priority, row.DueDate) }}
+      <mat-cell *matCellDef="let row" [ngClass]="row.priority == 0 ? 'mat-cell-LowPriority' : row.priority == 1 ? 'mat-cell-MedPriority' : 'mat-cell-highPriority'">
+        <mat-icon *ngIf="!(isHandset$ | async)">{{ getPriorityIconName(row.dueDate) }}</mat-icon>
+        {{ getPriorityDisplayName(row.priority, row.dueDate) }}
       </mat-cell>
     </ng-container>
 
     <!-- Status Column -->
-    <ng-container matColumnDef="Status">
+    <ng-container matColumnDef="status">
       <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="status-cell" *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
       <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" *matCellDef="let row" [ngClass]="{'hidden': (isHandset$ | async)}" class="status-cell">
-        {{ getStatusDisplayName(row.Status) }}
+        {{ getStatusDisplayName(row.status) }}
       </mat-cell>
     </ng-container>
 
     <!-- CreatedDate Column -->
-    <ng-container matColumnDef="CreatedDate">
+    <ng-container matColumnDef="createdDate">
       <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matHeaderCellDef mat-sort-header>Created Date</mat-header-cell>
-      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.CreatedDate | date: 'dd MMM yyyy'}}</mat-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.createdDate | date: 'dd MMM yyyy'}}</mat-cell>
     </ng-container>
 
     <!-- LastModifiedDate Column -->
-    <ng-container matColumnDef="LastModifiedDate">
+    <ng-container matColumnDef="lastModifiedDate">
       <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matHeaderCellDef mat-sort-header>Last Modified Date</mat-header-cell>
-      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.LastModifiedDate | date: 'dd MMM yyyy'}}</mat-cell>
+      <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="duedate-cell" *matCellDef="let row">{{row.lastModifiedDate | date: 'dd MMM yyyy'}}</mat-cell>
     </ng-container>
 
     <!-- actions -->
@@ -80,11 +80,11 @@
       </mat-header-cell>
 
       <mat-cell *matCellDef="let row; let i=index;" class="action-cell">
-        <button mat-icon-button color="accent" (click)="startEdit(i, row.Id)">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row.id)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="accent" (click)="deleteItem(i, row.Id, row.Title, row.Description, row.DueDate)">
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.id, row.title, row.description, row.dueDate)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </mat-cell>

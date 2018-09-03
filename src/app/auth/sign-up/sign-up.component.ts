@@ -35,9 +35,9 @@ export class SignUpComponent implements OnInit {
   signUp() {
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
-      this.user.Email = this.signUpForm.get('Email').value;
-      this.user.ConfirmEmail = this.signUpForm.get('ConfirmEmail').value;
-      this.user.Password = this.signUpForm.get('Password').value;
+      this.user.email = this.signUpForm.get('Email').value;
+      this.user.confirmEmail = this.signUpForm.get('ConfirmEmail').value;
+      this.user.password = this.signUpForm.get('Password').value;
       // this.authService.signup(this.user);
     }
   }

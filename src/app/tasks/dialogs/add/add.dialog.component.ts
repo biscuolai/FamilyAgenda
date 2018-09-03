@@ -134,12 +134,12 @@ export class AddDialogComponent implements OnInit {
 
     if (this.form.valid) {
 
-      this.data.Title = this.form.get('Title').value;
-      this.data.Description = this.form.get('Description').value;
-      this.data.DueDate = this.form.get('DueDate').value._d;
-      this.data.Priority = this.form.get('Priority').value;
-      this.data.Status = this.form.get('Status').value;
-      this.data.CreatedDate = new Date();
+      this.data.title = this.form.get('Title').value;
+      this.data.description = this.form.get('Description').value;
+      this.data.dueDate = this.form.get('DueDate').value._d;
+      this.data.priority = this.form.get('Priority').value;
+      this.data.status = this.form.get('Status').value;
+      this.data.createdDate = new Date();
 
       console.log('form is valid', this.data);
       this.tasksService.addTask(this.data);

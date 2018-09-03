@@ -21,51 +21,31 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
-      Username: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required]
     });
-
-    // this.subscription = this.route.queryParams.subscribe(
-    //   (queryParams: any) => {
-    //     // User is logging out
-
-    //     console.log("queryParams['logout']", queryParams['logout'])
-
-    //     this.isLoggingOut = (queryParams['logout'] !== undefined && queryParams['logout'] == 'true');
-
-    //     if (this.isLoggingOut){
-    //       console.log('log out inside login.component', this.isLoggingOut);
-    //       this.authService.logout();
-    //     }
-    //   }
-    // );
   }
 
   signIn() {
 
     console.log('form', this.signInForm);
-    
+
     if (this.signInForm.valid) {
       console.log('form is valid');
-      this.user.Username = this.signInForm.get('Username').value;
-      this.user.Password = this.signInForm.get('Password').value;
+      this.user.email = this.signInForm.get('Email').value;
+      this.user.password = this.signInForm.get('Password').value;
       this.authService.signin(this.user);
     }
   }
 
-  signUp(){
+  signUp() {
     this.router.navigate(['/signup']);
   }
-
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();  
-  // }
 }
 
