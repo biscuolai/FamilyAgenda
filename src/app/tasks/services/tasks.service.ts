@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { map, delay, tap } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -9,7 +9,7 @@ import { Task } from '../../shared/models/task';
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService {
+export class TasksService implements OnDestroy {
 
   private readonly API_URL = `${environment.API_URL}tasks/`;
 
@@ -18,7 +18,7 @@ export class TasksService {
   dialogData: any;
 
   tasks: Task[];
-  // subscription: Subscription;
+  subscription: Subscription;
 
   constructor(private http: HttpClient) { }
 
@@ -31,14 +31,14 @@ export class TasksService {
       .pipe(map(tasks => tasks.find(task => task.id == id)));
   }
 
+  get data(): Task[] {
+    return this.dataChange.value;
+  }
+
   // deleteTask(id: number) {
   //   alert('task delete id: ' + id);
   //   // this.http.put<Task>(this.API_URL, id);
   // }
-
-  get data(): Task[] {
-    return this.dataChange.value;
-  }
 
   getDialogData() {
     return this.dialogData;
@@ -46,12 +46,14 @@ export class TasksService {
 
   /** CRUD METHODS */
   getAllTasks(): void {
-    this.http.get<Task[]>(this.API_URL).subscribe(data => {
+    this.subscription = this.http.get<Task[]>(this.API_URL)
+//      .pipe(delay(3000), tap(console.log))
+      .subscribe((data: Task[]) => {
       this.dataChange.next(data);
     },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      });
+    (error: HttpErrorResponse) => {
+      console.log(error.name + ' ' + error.message);
+    });
   }
 
   // DEMO ONLY, you can find working methods below
@@ -106,6 +108,10 @@ export class TasksService {
       }
     );
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
 
   // getTasksDataGrid(
@@ -142,10 +148,6 @@ export class TasksService {
   //     }
   //   );
   //   return of(null);
-  // }
-
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
   // }
 
 

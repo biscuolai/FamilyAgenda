@@ -11,16 +11,26 @@
     </button>
   </div>
 
+  <!-- <mat-card *ngIf="dataSource.renderedData.length == 0"
+    style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+  </mat-card> -->
+
   <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
     No results
   </div>
 
-  <mat-table #table class="tasks-table mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="Priority" matSortDirection="desc"
+  <mat-table #table
+    class="tasks-table mat-elevation-z8" [dataSource]="dataSource"
+    matSort matSortActive="Priority" matSortDirection="desc"
     matSortDisableClear aria-label="Elements">
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-      <mat-header-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-header-cell [ngClass]="{'hidden': isHandset$ | async}" class="id-cell" *matHeaderCellDef mat-sort-header>#</mat-header-cell>
       <mat-cell [ngClass]="{'hidden': (isHandset$ | async)}" class="id-cell" *matCellDef="let row">{{row.id}}</mat-cell>
     </ng-container>
 
@@ -99,3 +109,4 @@
   </mat-paginator>
 
 </div>
+
