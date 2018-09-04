@@ -3,35 +3,35 @@
     {
       "id": 1,
       "title": "Fix front door",
-      "description": "Fix front door and paint",
+      "description": "Fix front door and paint0",
       "dueDate": "2018-08-11T19:43:37+0100",
-      "assignedTo": 1,
       "status": 1,
-      "createdDate": "2018-08-01T19:43:37+0100",
-      "lastModifiedDate": "",
-      "priority": 1
+      "priority": 1,
+      "assignedTo": 1,
+      "createdDate": "2018-09-04T16:06:50.530Z",
+      "lastModifiedDate": "2018-09-04T16:06:50.530Z"
     },
     {
       "id": 2,
-      "title": "Fix the back door",
+      "title": "Fix the back door-i",
       "description": "Fix the back door and dead-lock is not working",
       "dueDate": "2018-08-01T19:43:37+0100",
-      "assignedTo": 1,
       "status": 1,
-      "createdDate": "2018-08-01T19:43:37+0100",
-      "lastModifiedDate": "",
-      "priority": 2
+      "priority": 2,
+      "createdDate": "2018-09-04T16:06:50.530Z",
+      "assignedTo": 1,
+      "lastModifiedDate": "2018-09-04T16:10:09.090Z"
     },
     {
       "id": 3,
       "title": "Tap not working at kitchen",
-      "description": "Please fix the tap at the kitchen - leaking",
+      "description": "Please fix the tap at the kitchen - leaking0",
       "dueDate": "2018-08-30T19:43:37+0100",
-      "assignedTo": 1,
       "status": 2,
+      "priority": 1,
       "createdDate": "2018-08-01T19:43:37+0100",
-      "lastModifiedDate": "",
-      "priority": 1
+      "assignedTo": 1,
+      "lastModifiedDate": "2018-09-04T16:11:18.390Z"
     },
     {
       "id": 4,
@@ -62,6 +62,7 @@
       "dueDate": "2018-08-01T19:43:37+0100",
       "status": 4,
       "priority": 3,
+      "createdDate": "2018-09-04T16:06:50.530Z",
       "assignedTo": 2
     },
     {
@@ -71,6 +72,7 @@
       "dueDate": "2018-09-02T19:43:37+0100",
       "status": 1,
       "priority": 3,
+      "createdDate": "2018-09-04T16:06:50.530Z",
       "assignedTo": 1
     },
     {

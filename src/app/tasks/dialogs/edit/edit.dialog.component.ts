@@ -76,6 +76,7 @@ export class EditDialogComponent implements OnInit, OnDestroy {
       dueDate: ['', Validators.required],
       status: ['', Validators.required],
       priority: ['', Validators.required],
+      createdDate: ['', null],
       assignedTo: ['', null]
     });
 
@@ -97,7 +98,8 @@ export class EditDialogComponent implements OnInit, OnDestroy {
           dueDate: result.dueDate,
           assignedTo: result.assignedTo,
           status: result.status,
-          priority: result.priority
+          priority: result.priority,
+          createdDate: result.createdDate
         });
 
         this.selectedPriorityValue = result.priority;
@@ -128,6 +130,7 @@ export class EditDialogComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
 
       this.task = this.form.value;
+      this.task.lastModifiedDate = new Date();
 
       console.log('form is valid', this.task);
 

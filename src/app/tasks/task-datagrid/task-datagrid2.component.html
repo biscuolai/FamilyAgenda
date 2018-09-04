@@ -25,8 +25,7 @@
 
   <mat-table #table
     class="tasks-table mat-elevation-z8" [dataSource]="dataSource"
-    matSort matSortActive="Priority" matSortDirection="desc"
-    matSortDisableClear aria-label="Elements">
+    matSort matSortActive="createdDate" matSortDirection="desc" aria-label="Elements" matSortDisableClear>
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
