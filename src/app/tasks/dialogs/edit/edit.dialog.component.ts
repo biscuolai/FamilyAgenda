@@ -1,3 +1,6 @@
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -60,7 +63,8 @@ export class EditDialogComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private adapter: DateAdapter<any>,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -126,7 +130,16 @@ export class EditDialogComponent implements OnInit, OnDestroy {
       this.task = this.form.value;
 
       console.log('form is valid', this.task);
-      this.tasksService.updateItem(this.task);
+
+      this.tasksService.updateItem(this.task)
+        .pipe(tap(console.log))
+        .subscribe(data => {
+          this.toastr.success('Edit Task', 'Successfully edited!');
+        },
+        (err: HttpErrorResponse) => {
+          this.toastr.error('Edit Task', 'Error occurred. Details: ' + err.name + ' ' + err.message);
+        });
+
     } else {
       FormValidators.checkFormValidators(this.form);
     }

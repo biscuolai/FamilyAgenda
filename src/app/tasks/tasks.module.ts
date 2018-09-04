@@ -17,15 +17,15 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
+
 import { TaskNotFoundComponent } from './task-not-found/task-not-found.component';
 import { TasksRoutingModule } from './tasks.routing.module';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { FormDeactivateGuard } from '../guards/form-deactivate.guard';
 import { TaskDetailsResolverGuard } from '../guards/task-details.resolver';
 import { SharedModule } from './../shared/shared.module';
-import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
-import { AddDialogComponent } from './dialogs/add/add.dialog.component';
-import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,15 +33,15 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
     TaskDetailComponent,
     TaskNotFoundComponent,
     TaskFormComponent,
-    //DeleteDialogComponent,
-    //EditDialogComponent,
-    //AddDialogComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+
+    ToastrModule.forRoot(),
+    ToastContainerModule,
 
     TasksRoutingModule,
     SharedModule,

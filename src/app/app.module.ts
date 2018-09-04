@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -54,6 +55,8 @@ import { DeleteDialogComponent } from './tasks/dialogs/delete/delete.dialog.comp
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+
+    ToastrModule.forRoot(), // ToastrModule added
 
     AppRoutingModule,
     AuthModule,

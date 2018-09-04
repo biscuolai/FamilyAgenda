@@ -1,7 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { map, delay, tap } from 'rxjs/operators';
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 import { Task } from '../../shared/models/task';
@@ -9,18 +9,20 @@ import { Task } from '../../shared/models/task';
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService implements OnDestroy {
+export class TasksService {
 
   private readonly API_URL = `${environment.API_URL}tasks/`;
 
-  dataChange: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   // Temporarily stores data from dialogs
   dialogData: any;
 
   tasks: Task[];
-  subscription: Subscription;
 
   constructor(private http: HttpClient) { }
+
+  getDialogData() {
+    return this.dialogData;
+  }
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.API_URL);
@@ -31,29 +33,9 @@ export class TasksService implements OnDestroy {
       .pipe(map(tasks => tasks.find(task => task.id == id)));
   }
 
-  get data(): Task[] {
-    return this.dataChange.value;
-  }
-
-  // deleteTask(id: number) {
-  //   alert('task delete id: ' + id);
-  //   // this.http.put<Task>(this.API_URL, id);
-  // }
-
-  getDialogData() {
-    return this.dialogData;
-  }
-
   /** CRUD METHODS */
-  getAllTasks(): void {
-    this.subscription = this.http.get<Task[]>(this.API_URL)
-//      .pipe(delay(3000), tap(console.log))
-      .subscribe((data: Task[]) => {
-      this.dataChange.next(data);
-    },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + ' ' + error.message);
-    });
+  getAllTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.API_URL);
   }
 
   // DEMO ONLY, you can find working methods below
@@ -71,83 +53,22 @@ export class TasksService implements OnDestroy {
   //   console.log(id);
   // }
 
-
-
   //  REAL LIFE CRUD Methods I've used in my projects. ToasterService uses Material Toasts for displaying messages:
   //     ADD, POST METHOD
-  addItem(task: Task): void {
-    this.http.post(this.API_URL, task).subscribe(data => {
-      this.dialogData = task;
-      // this.toasterService.showToaster('Successfully added', 3000);
-    },
-      (err: HttpErrorResponse) => {
-        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      });
+  addItem(task: Task): Observable<Task> {
+    this.dialogData = task;
+    return this.http.post<Task>(this.API_URL, task);
   }
 
   // UPDATE, PUT METHOD
-  updateItem(task: Task): void {
-    this.http.put(this.API_URL + task.id, task).subscribe(data => {
-      this.dialogData = task;
-      // this.toasterService.showToaster('Successfully edited', 3000);
-    },
-      (err: HttpErrorResponse) => {
-        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
+  updateItem(task: Task): Observable<Task> {
+    this.dialogData = task;
+    return this.http.put<Task>(this.API_URL + task.id, task);
   }
 
   // DELETE METHOD
-  deleteItem(id: number): void {
-    this.http.delete(this.API_URL + id).subscribe(data => {
-      console.log(data['']);
-      // this.toasterService.showToaster('Successfully deleted', 3000);
-    },
-      (err: HttpErrorResponse) => {
-        // this.toasterService.showToaster('Error occurred. Details: ' + err.name + ' ' + err.message, 8000);
-      }
-    );
+  deleteItem(id: number): Observable<Task> {
+    return this.http.delete<Task>(this.API_URL + id);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
-
-  // getTasksDataGrid(
-  //   filter = '', sortOrder = 'asc',
-  //   pageNumber = 0, pageSize = 3):  Observable<Task[]> {
-
-  //   const tasksUrl = 'assets/data/tasks.json';
-
-  //   console.log('inside getTasksDataGrid');
-
-  //   return this.http.get<Task[]>(tasksUrl, {
-  //       params: new HttpParams()
-  //           .set('filter', filter)
-  //           .set('sortOrder', sortOrder)
-  //           .set('pageNumber', pageNumber.toString())
-  //           .set('pageSize', pageSize.toString())
-  //   });
-  // }
-
-  // getTask(id: string): Observable<Task> {
-  //   this.subscription = this.getTasks().subscribe(
-  //     (data: Task[]) => {
-  //       this.tasks = data;
-
-  //       console.log('inside gettask', data);
-
-  //       for (let i = 0; i < this.tasks.length; i++) {
-  //         const task = this.tasks[i];
-  //         console.log('for', task, task.Id, id);
-  //         if (task.Id === id) {
-  //           return of(task);
-  //         }
-  //       }
-  //     }
-  //   );
-  //   return of(null);
-  // }
-
-

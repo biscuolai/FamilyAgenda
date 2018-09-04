@@ -1,10 +1,11 @@
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { debounceTime, distinctUntilChanged, map, take } from 'rxjs/operators';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
-import { Observable, BehaviorSubject, merge, fromEvent } from 'rxjs';
+import { Observable, BehaviorSubject, merge, fromEvent, Subscription } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { tap } from 'rxjs/operators';
 
 import { Task } from './../../shared/models/task';
 import { TasksService } from '../services/tasks.service';
@@ -20,7 +21,7 @@ import { Status } from './../../shared/models/status';
   templateUrl: './task-datagrid2.component.html',
   styleUrls: ['./task-datagrid2.component.css']
 })
-export class TaskDatagrid2Component implements OnInit {
+export class TaskDatagrid2Component implements OnInit, OnDestroy {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
     'actions',
@@ -38,6 +39,8 @@ export class TaskDatagrid2Component implements OnInit {
   dataSource: ExampleDataSource | null;
   index: number;
   id: number;
+
+  filterSub: Subscription;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -94,9 +97,12 @@ export class TaskDatagrid2Component implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
+
+        console.log('close dialog', this.taskDatabase.getDialogData());
+
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside TasksService
-        this.taskDatabase.dataChange.value.push(this.tasksService.getDialogData());
+        this.dataSource.data.push(this.tasksService.getDialogData());
         this.refreshTable();
       }
     });
@@ -115,9 +121,9 @@ export class TaskDatagrid2Component implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
         // When using an edit things are little different, firstly we find record inside TasksService by id
-        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        const foundIndex = this.dataSource.data.findIndex(x => x.id === this.id);
         // Then you update that record using data from dialogData (values you enetered)
-        this.taskDatabase.dataChange.value[foundIndex] = this.tasksService.getDialogData();
+        this.dataSource.data[foundIndex] = this.tasksService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
       }
@@ -133,9 +139,9 @@ export class TaskDatagrid2Component implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 1) {
-        const foundIndex = this.taskDatabase.dataChange.value.findIndex(x => x.id === this.id);
+        const foundIndex = this.dataSource.data.findIndex(x => x.id === this.id);
         // for delete we use splice in order to remove single object from TasksService
-        this.taskDatabase.dataChange.value.splice(foundIndex, 1);
+        this.dataSource.data.splice(foundIndex, 1);
         this.refreshTable();
       }
     });
@@ -161,13 +167,20 @@ export class TaskDatagrid2Component implements OnInit {
   public loadData() {
     this.taskDatabase = new TasksService(this.httpClient);
     this.dataSource = new ExampleDataSource(this.taskDatabase, this.paginator, this.sort);
-    fromEvent(this.filter.nativeElement, 'keyup')
+    this.filterSub = fromEvent(this.filter.nativeElement, 'keyup')
       .pipe(
-        debounceTime(150),
+        debounceTime(250),
         distinctUntilChanged()
       ).subscribe(() => {
+        // if there is no data, then no point in filter. It will cause an exception
         if (!this.dataSource) {
           return;
+        }
+        // if there is nothing in the input filter field and the server field is already empty
+        // then do not filter
+        if (this.filter.nativeElement.value === '' &&
+            this.dataSource.filter === '') {
+              return;
         }
         this.dataSource.filter = this.filter.nativeElement.value;
       });
@@ -178,12 +191,14 @@ export class TaskDatagrid2Component implements OnInit {
   }
 
   getPriorityDisplayName(priority: number, dueDate: string) {
-    const today = new Date();
-    const dueDateObj = new Date(dueDate);
-    const daysPassed = this.getDateDiff(today, dueDateObj);
+    if (this.priorityList) {
+      const today = new Date();
+      const dueDateObj = new Date(dueDate);
+      const daysPassed = this.getDateDiff(today, dueDateObj);
 
-    const priorityName = this.priorityList.find(x => x.id === priority).name.substring(0, 1);
-    return priorityName + ' ' + daysPassed;
+      const priorityName = this.priorityList.find(x => x.id === priority).name.substring(0, 1);
+      return priorityName + ' ' + daysPassed;
+    }
   }
 
   getStatusDisplayName(status: number) {
@@ -192,8 +207,10 @@ export class TaskDatagrid2Component implements OnInit {
     // console.log('status', status);
     // console.log('find', this.statusList.find(x => x.id === status));
 
-    const statusName = this.statusList.find(x => x.id === status).name;
-    return statusName;
+    if (this.statusList) {
+      const statusName = this.statusList.find(x => x.id === status).name;
+      return statusName;
+    }
   }
 
   getPriorityIconName(dueDate: string) {
@@ -208,10 +225,22 @@ export class TaskDatagrid2Component implements OnInit {
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     return Math.round((date2.getTime() - date1.getTime()) / (oneDay));
   }
+
+  ngOnDestroy() {
+    this.filterSub.unsubscribe();
+  }
 }
 
-export class ExampleDataSource extends DataSource<Task> {
+export class ExampleDataSource extends DataSource<Task> implements OnDestroy {
+
+  // Listen to the array of Tasks - any changes on the BehaviourSubject
+  _dataChange: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
+  // Listen to the filter values changes
   _filterChange = new BehaviorSubject('');
+
+  get data(): Task[] {
+    return this._dataChange.value;
+  }
 
   get filter(): string {
     return this._filterChange.value;
@@ -224,29 +253,40 @@ export class ExampleDataSource extends DataSource<Task> {
   filteredData: Task[] = [];
   renderedData: Task[] = [];
 
+  dataSub: Subscription;
+  filterSub: Subscription;
+
   constructor(public _exampleDatabase: TasksService,
     public _paginator: MatPaginator,
     public _sort: MatSort) {
     super();
     // Reset to the first page when the user changes the filter.
-    this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
+    this.filterSub = this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Task[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
-      this._exampleDatabase.dataChange,
+      this._dataChange,
       this._sort.sortChange,
       this._filterChange,
       this._paginator.page
     ];
 
-    this._exampleDatabase.getAllTasks();
+    this.dataSub = this._exampleDatabase.getAllTasks()
+      .pipe(take(1))
+      .subscribe((data: Task[]) => {
+        this._dataChange.next(data);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      });
 
     return merge(...displayDataChanges).pipe(map(() => {
       // Filter data
-      this.filteredData = this._exampleDatabase.data.slice().filter((task: Task) => {
+      this.filteredData = this.data.slice().filter((task: Task) => {
+
         const searchStr = (task.id + task.title + task.description).toLowerCase();
         return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
       });
@@ -293,6 +333,11 @@ export class ExampleDataSource extends DataSource<Task> {
 
       return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
     });
+  }
+
+  ngOnDestroy() {
+    this.dataSub.unsubscribe();
+    this.filterSub.unsubscribe();
   }
 
 }

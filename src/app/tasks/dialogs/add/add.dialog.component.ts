@@ -1,7 +1,9 @@
+import { tap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormValidators } from './../../../shared/utils/FormValidators';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { TasksService } from '../../services/tasks.service';
@@ -19,6 +21,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 import * as _moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 const moment = _moment;
 
 @Component({
@@ -54,13 +57,16 @@ export class AddDialogComponent implements OnInit {
   selectedStatusValue: number;
   selectedPriorityValue: number;
 
+  dataSub: Subscription;
+
   constructor(
     public dialogRef: MatDialogRef<AddDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Task,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private adapter: DateAdapter<any>,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -132,7 +138,15 @@ export class AddDialogComponent implements OnInit {
       this.data.createdDate = new Date();
 
       console.log('form is valid', this.data);
-      this.tasksService.addItem(this.data);
+
+      this.dataSub = this.tasksService.addItem(this.data)
+        .pipe(tap(console.log))
+        .subscribe(data => {
+          this.toastr.success('Add new Task', 'Successfully added');
+        },
+        (err: HttpErrorResponse) => {
+          this.toastr.error('Add new Task', 'Error occurred. Details: ' + err.name + ' ' + err.message);
+        });
     } else {
       FormValidators.checkFormValidators(this.form);
     }

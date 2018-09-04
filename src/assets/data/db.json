@@ -57,23 +57,30 @@
     },
     {
       "id": 6,
-      "title": "Pick up groceries",
-      "description": "Pick up groceries",
+      "title": "Pick up groceries-up",
+      "description": "Pick up dd",
       "dueDate": "2018-08-01T19:43:37+0100",
-      "assignedTo": 2,
-      "status": 1,
-      "createdDate": "2018-08-01T19:43:37+0100",
-      "lastModifiedDate": "",
-      "priority": 3
+      "status": 4,
+      "priority": 3,
+      "assignedTo": 2
     },
     {
       "id": 7,
-      "title": "Test new task - updated1",
+      "title": "Test new task - updated",
       "description": "Test - updated1",
       "dueDate": "2018-09-02T19:43:37+0100",
       "status": 1,
       "priority": 3,
       "assignedTo": 1
+    },
+    {
+      "title": "sdkjfh",
+      "description": "skjdhskjdf",
+      "dueDate": "2018-10-03T16:00:00.000Z",
+      "priority": 1,
+      "status": 1,
+      "createdDate": "2018-09-04T14:58:47.965Z",
+      "id": 9
     }
   ],
   "priority": [
